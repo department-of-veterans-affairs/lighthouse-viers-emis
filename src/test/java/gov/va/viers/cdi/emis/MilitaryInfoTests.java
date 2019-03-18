@@ -1,6 +1,6 @@
 package gov.va.viers.cdi.emis;
 
-import gov.va.viers.cdi.emis.ws.client.MilitaryInfoClient;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,6 @@ public class MilitaryInfoTests {
 
     @Test
     public void tryIt() {
-        assertThat(client.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI")).isEqualTo(null);
+        assertThat(client.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI").getValue().getMilitaryServiceEligibility()).isNotEmpty();
     }
 }

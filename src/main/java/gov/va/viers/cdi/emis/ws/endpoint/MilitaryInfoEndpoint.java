@@ -1,5 +1,6 @@
 package gov.va.viers.cdi.emis.ws.endpoint;
 
+import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 
@@ -26,8 +27,10 @@ public class MilitaryInfoEndpoint {
         //hoping I'm allowed to return an empty soap response
         ObjectFactory factory = new ObjectFactory();
         EMISmilitaryServiceEligibilityResponseType response = new EMISmilitaryServiceEligibilityResponseType();
-
-        return factory.createEMISmilitaryServiceEligibilityResponse(response);
+        gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType errorType = new ESSErrorType();
+        response.setESSError(errorType);
+        JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbElement = factory.createEMISmilitaryServiceEligibilityResponse(response);
+        return jaxbElement;
     }
 
 
