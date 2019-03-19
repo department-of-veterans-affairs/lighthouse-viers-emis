@@ -19,26 +19,27 @@ import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
 
-    @Bean
-    public ServletRegistrationBean<Servlet> messageDispatcherServlet(ApplicationContext applicationContext) {
-        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(applicationContext);
+  @Bean
+  public ServletRegistrationBean<Servlet> messageDispatcherServlet(
+      ApplicationContext applicationContext) {
+    MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+    servlet.setApplicationContext(applicationContext);
 
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
-    }
+    return new ServletRegistrationBean<>(servlet, "/ws/*");
+  }
 
-    @Bean
-    public SaajSoapMessageFactory messageFactory() {
-        SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory();
-        messageFactory.setSoapVersion(SoapVersion.SOAP_12);
-        return messageFactory;
-    }
+  @Bean
+  public SaajSoapMessageFactory messageFactory() {
+    SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory();
+    messageFactory.setSoapVersion(SoapVersion.SOAP_12);
+    return messageFactory;
+  }
 
-    @Bean(name = "eMISMilitaryInfoRequestResponse")
-    public Wsdl11Definition defaultWsdl11Definition() {
-        SimpleWsdl11Definition wsdl11Definition = new SimpleWsdl11Definition();
-        wsdl11Definition.setWsdl(new ClassPathResource("/wsdl/eMISMilitaryInformationService.wsdl"));
+  @Bean(name = "eMISMilitaryInfoRequestResponse")
+  public Wsdl11Definition defaultWsdl11Definition() {
+    SimpleWsdl11Definition wsdl11Definition = new SimpleWsdl11Definition();
+    wsdl11Definition.setWsdl(new ClassPathResource("/wsdl/eMISMilitaryInformationService.wsdl"));
 
-        return wsdl11Definition;
-    }
+    return wsdl11Definition;
+  }
 }
