@@ -16,9 +16,9 @@ public class MilitaryInfoTests {
     private MilitaryInfoClient client;
 
     @Test
-    public void tryIt() {
+    public void getMilitaryServiceEligibilitySuccess() {
         JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType> response =
             client.getMilitaryServiceEligibilityResponse("6001", "EDIPI");
-        assertThat(response.getValue().getMilitaryServiceEligibility().get(0).getVeteranStatus().getPersonFirstName()).isEqualTo("EMIS_FIRST_NM_74");
+        assertThat(response.getValue().getESSError()).isNotNull();
     }
 }
