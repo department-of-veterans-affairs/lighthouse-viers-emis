@@ -1,6 +1,10 @@
 package gov.va.viers.cdi.emis;
 
 
+import gov.va.viers.cdi.emis.client.MilitaryInfoClient;
+import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
+import java.util.Optional;
+import java.util.stream.Stream;
 import javax.xml.bind.JAXBElement;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +23,6 @@ public class MilitaryInfoTests {
     public void getMilitaryServiceEligibilitySuccess() {
         JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType> response =
             client.getMilitaryServiceEligibilityResponse("6001", "EDIPI");
-        assertThat(response.getValue().getESSError()).isNotNull();
+        assertThat(Optional.ofNullable(response).map(r->r.getValue()).map(v->v.getESSError()).orElse(null)).isNotNull();
     }
 }

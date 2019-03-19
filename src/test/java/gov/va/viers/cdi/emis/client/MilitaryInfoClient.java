@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis;
+package gov.va.viers.cdi.emis.client;
 
 import gov.va.viers.cdi.emis.commonservice.v2.InputEdipiIcn;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;

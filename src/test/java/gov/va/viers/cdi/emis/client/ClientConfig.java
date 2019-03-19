@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis;
+package gov.va.viers.cdi.emis.client;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPConstants;
