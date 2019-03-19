@@ -2,11 +2,7 @@ package gov.va.viers.cdi.emis;
 
 
 import gov.va.viers.cdi.emis.client.MilitaryInfoClient;
-import gov.va.viers.cdi.emis.commonservice.v2.MilitaryServiceEligibility;
-import gov.va.viers.cdi.emis.commonservice.v2.VeteranStatus;
-import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import java.util.Optional;
-import java.util.stream.Stream;
 import javax.xml.bind.JAXBElement;
 import org.junit.Test;
 import org.junit.runner.RunWith;
