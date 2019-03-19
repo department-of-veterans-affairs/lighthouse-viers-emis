@@ -2,6 +2,8 @@ package gov.va.viers.cdi.emis;
 
 
 import gov.va.viers.cdi.emis.client.MilitaryInfoClient;
+import gov.va.viers.cdi.emis.commonservice.v2.MilitaryServiceEligibility;
+import gov.va.viers.cdi.emis.commonservice.v2.VeteranStatus;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -22,7 +24,14 @@ public class MilitaryInfoTests {
     @Test
     public void getMilitaryServiceEligibilitySuccess() {
         JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType> response =
-            client.getMilitaryServiceEligibilityResponse("6001", "EDIPI");
-        assertThat(Optional.ofNullable(response).map(r->r.getValue()).map(v->v.getESSError()).orElse(null)).isNotNull();
+            client.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI");
+        assertThat(Optional.ofNullable(response)
+            .map(r->r.getValue())
+            .map(v->v.getMilitaryServiceEligibility())
+            .flatMap(m->m.stream().findFirst())
+            .map(e->e.getVeteranStatus())
+            .map(s->s.getPersonFirstName())
+            .orElse(null))
+            .isNotBlank();
     }
 }
