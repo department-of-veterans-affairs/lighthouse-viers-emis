@@ -17,7 +17,6 @@ public class DoDAdapterClientConfig {
   Jaxb2Marshaller jaxb2Marshaller() {
     Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
     jaxb2Marshaller.setContextPath("gov.va.schema.emis.vdrdodadapter.v2");
-
     return jaxb2Marshaller;
   }
 
