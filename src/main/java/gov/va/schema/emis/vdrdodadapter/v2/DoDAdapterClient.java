@@ -18,6 +18,7 @@ public class DoDAdapterClient {
     InputEdiPi edipi = new InputEdiPi();
     edipi.setEdipi(value);
     JAXBElement<InputEdiPi> request = factory.createEMISmilitaryServiceEligibilityRequest(edipi);
+
     JAXBElement<EMISmilitaryServiceEligibilityResponseType> response =
         (JAXBElement<EMISmilitaryServiceEligibilityResponseType>)
             DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
