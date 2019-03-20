@@ -58,18 +58,20 @@ public class MilitaryInfoTests {
   @Test
   public void getMilitaryServiceEligibilitySuccess() {
     initSuccessMock();
+    for (int i = 0; i < 1000; i++) {
+      JAXBElement<
+              gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+          response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI");
 
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI");
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(v -> v.getMilitaryServiceEligibility())
-                .flatMap(m -> m.stream().findFirst())
-                .map(e -> e.getVeteranStatus())
-                .map(s -> s.getPersonFirstName())
-                .orElse(null))
-        .isEqualTo("EMIS_FIRST_NM_74");
+      assertThat(
+              Optional.ofNullable(response)
+                  .map(r -> r.getValue())
+                  .map(v -> v.getMilitaryServiceEligibility())
+                  .flatMap(m -> m.stream().findFirst())
+                  .map(e -> e.getVeteranStatus())
+                  .map(s -> s.getPersonFirstName())
+                  .orElse(null))
+          .isEqualTo("EMIS_FIRST_NM_74");
+    }
   }
 }

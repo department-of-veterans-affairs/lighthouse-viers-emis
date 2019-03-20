@@ -31,7 +31,9 @@ public class MilitaryInfoEndpoint {
       @RequestPayload InputEdiPiOrIcn request) {
     JAXBElement<gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType> dodResponse =
     dodClient.getMilitaryServiceEligibilityResponse(request.getEdipiORicn().getEdipiORicnValue());
-    EMISMapper.INSTANCE.mapAwardsDataList(dodResponse.getValue().getMilitaryServiceEligibility().get(0).getAwards());
-    return null;
+    EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
+    ObjectFactory objectFactory = new ObjectFactory();
+    noJaxbResponse = EMISMapper.INSTANCE.mapServiceEligibilityResponseType(dodResponse.getValue());
+    return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
 }
