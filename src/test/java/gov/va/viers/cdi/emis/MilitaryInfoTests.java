@@ -58,7 +58,6 @@ public class MilitaryInfoTests {
   @Test
   public void getMilitaryServiceEligibilitySuccess() {
     initSuccessMock();
-
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
         response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI");
 
