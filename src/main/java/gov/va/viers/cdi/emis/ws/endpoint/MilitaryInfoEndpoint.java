@@ -1,9 +1,7 @@
 package gov.va.viers.cdi.emis.ws.endpoint;
 
 import gov.va.EMISMapper;
-import gov.va.schema.emis.vdrdodadapter.v2.AwardsData;
 import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
-import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -41,7 +39,7 @@ public class MilitaryInfoEndpoint {
                 request.getEdipiORicn().getEdipiORicnValue());
 
     EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
-    noJaxbResponse = EMISMapper.INSTANCE.mapServiceEligibilityResponseType(dodResponse.getValue());
+    noJaxbResponse = EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }

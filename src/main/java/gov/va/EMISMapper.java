@@ -27,18 +27,18 @@ public interface EMISMapper {
 
   // Sub types of EMISmilitaryServiceEligibilityResponseType include:
   // List<MilitaryServiceEligibility>, ESSErrorType
-  EMISmilitaryServiceEligibilityResponseType mapServiceEligibilityResponseType(
+  EMISmilitaryServiceEligibilityResponseType mapEMISmilitaryServiceEligibilityResponseType(
       gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType
           emiSmilitaryServiceEligibilityResponseType);
 
   // Sub types of List<MilitaryServiceEligibility> include: VeteranStatus, DentalIndicatorData,
   // List<PurpleHeartOrMohData>, List<MilitaryServiceEpisodeEligibilityData>, List<AwardsData>
-  List<MilitaryServiceEligibility> mapServiceEligibility(
+  List<MilitaryServiceEligibility> mapMilitaryServiceEligibilityList(
       List<gov.va.schema.emis.vdrdodadapter.v2.MilitaryServiceEligibility>
-          militaryServiceEligibilities);
+          militaryServiceEligibilityList);
 
   // Sub types of VeteranStatus include: PersonnelDutyStatusCodeType
-  VeteranStatus mapVetStatus(gov.va.schema.emis.vdrdodadapter.v2.VeteranStatus veteranStatus);
+  VeteranStatus mapVeteranStatus(gov.va.schema.emis.vdrdodadapter.v2.VeteranStatus veteranStatus);
 
   PersonnelDutyStatusCodeType mapPersonnelDutyStatusCodeType(
       gov.va.schema.emis.vdrdodadapter.v2.PersonnelDutyStatusCodeType personnelDutyStatusCodeType);
