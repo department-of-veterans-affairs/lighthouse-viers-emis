@@ -30,7 +30,8 @@ public class ServiceElegibilityTransformersTest {
       emisResponse = JAXB.unmarshal(emisInputStream, EMISmilitaryServiceEligibilityResponseType.class);
       dodResponse = JAXB.unmarshal(dodInputStream, gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType.class);
     } catch (IOException e) {
-      LOGGER.debug("File not found, check resources folder");
+      LOGGER.debug("File not found, check resources folder", e);
+      emisResponse = null;
       dodResponse = null;
     }
   }
