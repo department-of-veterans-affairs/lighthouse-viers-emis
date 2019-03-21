@@ -1,8 +1,5 @@
 package gov.va;
 
-import java.util.List;
-
-
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.commonservice.v2.AwardsData;
 import gov.va.viers.cdi.emis.commonservice.v2.CombatPayData;
@@ -16,10 +13,12 @@ import gov.va.viers.cdi.emis.commonservice.v2.MilitaryServiceEpisodeEligibilityD
 import gov.va.viers.cdi.emis.commonservice.v2.PayGradeData;
 import gov.va.viers.cdi.emis.commonservice.v2.PersonnelDutyStatusCodeType;
 import gov.va.viers.cdi.emis.commonservice.v2.PurpleHeartOrMohData;
-import gov.va.viers.cdi.emis.commonservice.v2.VeteranStatus;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper()
 public interface EMISMapper {
@@ -32,14 +31,19 @@ public interface EMISMapper {
       gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType
           emiSmilitaryServiceEligibilityResponseType);
 
+  // The VeteranStatus mapper is generated here as it relies on the edipi of
+  // MilitaryServiceEligibility.
+  // Sub types of VeteranStatus include: PersonnelDutyStatusCodeType
+  @Mapping(target = "veteranStatus", source = "veteranStatus")
+  @Mapping(target = "veteranStatus.edipi", source = "edipi")
+  MilitaryServiceEligibility mapMilitaryServiceEligibility(
+      gov.va.schema.emis.vdrdodadapter.v2.MilitaryServiceEligibility MilitaryServiceEligibility);
+
   // Sub types of List<MilitaryServiceEligibility> include: VeteranStatus, DentalIndicatorData,
   // List<PurpleHeartOrMohData>, List<MilitaryServiceEpisodeEligibilityData>, List<AwardsData>
   List<MilitaryServiceEligibility> mapMilitaryServiceEligibilityList(
       List<gov.va.schema.emis.vdrdodadapter.v2.MilitaryServiceEligibility>
           militaryServiceEligibilityList);
-
-  // Sub types of VeteranStatus include: PersonnelDutyStatusCodeType
-  VeteranStatus mapVeteranStatus(gov.va.schema.emis.vdrdodadapter.v2.VeteranStatus veteranStatus);
 
   PersonnelDutyStatusCodeType mapPersonnelDutyStatusCodeType(
       gov.va.schema.emis.vdrdodadapter.v2.PersonnelDutyStatusCodeType personnelDutyStatusCodeType);
@@ -75,10 +79,14 @@ public interface EMISMapper {
   List<CombatPayData> mapCombatPayDataList(
       List<gov.va.schema.emis.vdrdodadapter.v2.CombatPayData> CombatPayDataList);
 
+  @Mapping(target = "disabilitySeverancePayCombatCode", ignore = true)
+  CombatPayData mapCombatPayData(gov.va.schema.emis.vdrdodadapter.v2.CombatPayData CombatPayData);
+
   PayGradeData mapPayGradeData(gov.va.schema.emis.vdrdodadapter.v2.PayGradeData payGradeData);
 
   List<AwardsData> mapAwardsDataList(
       List<gov.va.schema.emis.vdrdodadapter.v2.AwardsData> awardsData);
+
+  @Mapping(target = "code", ignore = true)
   ESSErrorType mapESSErrorType(gov.va.schema.emis.vdrdodadapter.v2.ESSErrorType ESSErrorType);
 }
-
