@@ -2,6 +2,7 @@ package gov.va;
 
 import java.util.List;
 
+
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.commonservice.v2.AwardsData;
 import gov.va.viers.cdi.emis.commonservice.v2.CombatPayData;
@@ -78,6 +79,6 @@ public interface EMISMapper {
 
   List<AwardsData> mapAwardsDataList(
       List<gov.va.schema.emis.vdrdodadapter.v2.AwardsData> awardsData);
-
   ESSErrorType mapESSErrorType(gov.va.schema.emis.vdrdodadapter.v2.ESSErrorType ESSErrorType);
 }
+
