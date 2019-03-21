@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 
-public class GreatExpectationsTransformerTest {
+public class ServiceElegibilityTransformersTest {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(GreatExpectationsTransformerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceElegibilityTransformersTest.class);
   EMISmilitaryServiceEligibilityResponseType emisResponse;
   gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType dodResponse;
 
@@ -36,9 +36,8 @@ public class GreatExpectationsTransformerTest {
   }
 
   @Test
-  public void pip(){
+  public void serviceElegibilityTransformersTest(){
     initializeResponses();
-    LOGGER.info(dodResponse.getMilitaryServiceEligibility().get(0).getEdipi());
     EMISmilitaryServiceEligibilityResponseType transformedDodResponse = EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse);
     assertThat(transformedDodResponse).isEqualToComparingFieldByFieldRecursively(emisResponse);
   }
