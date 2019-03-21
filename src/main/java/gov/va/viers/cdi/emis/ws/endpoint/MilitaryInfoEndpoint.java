@@ -22,18 +22,27 @@ import javax.xml.bind.JAXBElement;
 public class MilitaryInfoEndpoint {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoEndpoint.class);
-@Autowired private DoDAdapterClient dodClient;
+
+  private ObjectFactory objectFactory = new ObjectFactory();
+
+  @Autowired private DoDAdapterClient dodClient;
+
   @PayloadRoot(
       namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
       localPart = "eMISmilitaryServiceEligibilityRequest")
   @ResponsePayload
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
       @RequestPayload InputEdiPiOrIcn request) {
-    JAXBElement<gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType> dodResponse =
-    dodClient.getMilitaryServiceEligibilityResponse(request.getEdipiORicn().getEdipiORicnValue());
+    /*     This should probably be wrapped in some null checks, not sure what EMIS does in those cases
+    though with regards to returning that there was bad input*/
+    JAXBElement<gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType>
+        dodResponse =
+            dodClient.getMilitaryServiceEligibilityResponse(
+                request.getEdipiORicn().getEdipiORicnValue());
+
     EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
-    ObjectFactory objectFactory = new ObjectFactory();
     noJaxbResponse = EMISMapper.INSTANCE.mapServiceEligibilityResponseType(dodResponse.getValue());
+
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
 }

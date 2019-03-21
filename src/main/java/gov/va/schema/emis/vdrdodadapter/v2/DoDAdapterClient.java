@@ -12,9 +12,10 @@ public class DoDAdapterClient {
 
   @Autowired private WebServiceTemplate DoDAdapterWebServiceTemplate;
 
+  private ObjectFactory factory = new ObjectFactory();
+
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType>
       getMilitaryServiceEligibilityResponse(String value) {
-    ObjectFactory factory = new ObjectFactory();
     InputEdiPi edipi = new InputEdiPi();
     edipi.setEdipi(value);
     JAXBElement<InputEdiPi> request = factory.createEMISmilitaryServiceEligibilityRequest(edipi);
