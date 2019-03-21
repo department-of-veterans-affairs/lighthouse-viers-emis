@@ -1,14 +1,4 @@
-<NS1:Envelope xmlns:NS1="http://www.w3.org/2003/05/soap-envelope">
-   <NS1:Header>
-      <NS2:essResponseCode xmlns:NS2="http://va.gov/ess/message/v1">Success</NS2:essResponseCode>
-      <NS3:inputHeaderInfo xmlns:NS3="http://viers.va.gov/cdi/CDI/commonService/v2">
-         <NS3:userId>sujeetelig</NS3:userId>
-         <NS3:sourceSystemName>sujeetgfe</NS3:sourceSystemName>
-         <NS3:transactionId>acalclcnakl</NS3:transactionId>
-      </NS3:inputHeaderInfo>
-   </NS1:Header>
-   <NS1:Body>
-      <NS4:eMISmilitaryServiceEligibilityResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
+<NS4:eMISmilitaryServiceEligibilityResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
          <NS5:militaryServiceEligibility xmlns:NS5="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
             <NS6:edipi xmlns:NS6="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS6:edipi>
             <NS7:veteranStatus xmlns:NS7="http://viers.va.gov/cdi/eMIS/commonService/v2">
@@ -212,5 +202,3 @@
             </NS11:militaryServiceEpisodes>
          </NS5:militaryServiceEligibility>
       </NS4:eMISmilitaryServiceEligibilityResponse>
-   </NS1:Body>
-</NS1:Envelope>

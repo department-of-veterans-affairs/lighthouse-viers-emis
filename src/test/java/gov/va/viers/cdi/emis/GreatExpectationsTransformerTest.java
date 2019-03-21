@@ -21,7 +21,6 @@ public class GreatExpectationsTransformerTest {
 
   public void initializeResponses() {
     try {
-      // Grabbing from classpath
       ClassPathResource emisSampleResponse =
           new ClassPathResource("/samples/emisSampleResponse.xml");
       ClassPathResource dodSampleResponse =
@@ -39,8 +38,8 @@ public class GreatExpectationsTransformerTest {
   @Test
   public void pip(){
     initializeResponses();
-    EMISmilitaryServiceEligibilityResponseType expected = emisResponse;
-    EMISmilitaryServiceEligibilityResponseType transformedDodResponse = EMISMapper.INSTANCE.mapServiceEligibilityResponseType(dodResponse);
-    assertThat(transformedDodResponse).isEqualToComparingFieldByFieldRecursively(expected);
+    LOGGER.info(dodResponse.getMilitaryServiceEligibility().get(0).getEdipi());
+    EMISmilitaryServiceEligibilityResponseType transformedDodResponse = EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse);
+    assertThat(transformedDodResponse).isEqualToComparingFieldByFieldRecursively(emisResponse);
   }
 }
