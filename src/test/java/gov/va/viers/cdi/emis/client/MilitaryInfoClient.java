@@ -55,9 +55,9 @@ public class MilitaryInfoClient {
                           new gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory();
 
                       InputHeaderInfo header = objectFactory.createInputHeaderInfo();
-                      header.setSourceSystemName("hello");
-                      header.setUserId("hello");
-                      header.setTransactionId("hello");
+                      header.setSourceSystemName("sourceSystem");
+                      header.setUserId("userId");
+                      header.setTransactionId("transactionId");
 
                       JAXBElement<InputHeaderInfo> headers =
                           objectFactory.createInputHeaderInfo(header);
