@@ -9,11 +9,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.soap.SoapVersion;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
+import org.springframework.ws.soap.server.endpoint.interceptor.PayloadRootSmartSoapEndpointInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition;
 import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
+
+import java.util.List;
 
 @EnableWs
 @Configuration
@@ -26,6 +30,15 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     servlet.setApplicationContext(applicationContext);
 
     return new ServletRegistrationBean<>(servlet, "/ws/*");
+  }
+
+  @Override
+  public void addInterceptors(List<EndpointInterceptor> interceptors) {
+    interceptors.add(
+        new PayloadRootSmartSoapEndpointInterceptor(
+            new MilInfoInterceptor(),
+            MilitaryInfoEndpoint.NAMESPACE,
+            MilitaryInfoEndpoint.LOCAL_PART));
   }
 
   @Bean

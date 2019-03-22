@@ -2,6 +2,7 @@ package gov.va.viers.cdi.emis.ws.endpoint;
 
 import gov.va.EMISMapper;
 import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
+import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -13,6 +14,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
+import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 
 import javax.xml.bind.JAXBElement;
 
@@ -21,13 +23,19 @@ public class MilitaryInfoEndpoint {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoEndpoint.class);
 
-  private ObjectFactory objectFactory = new ObjectFactory();
+  public static final String NAMESPACE = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2";
+
+  public static final String LOCAL_PART = "eMISmilitaryServiceEligibilityRequest";
+
+  private ObjectFactory milInfoFactory = new ObjectFactory();
+
+  private gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory commonFactory = new gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory();
 
   @Autowired private DoDAdapterClient dodClient;
 
   @PayloadRoot(
-      namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
-      localPart = "eMISmilitaryServiceEligibilityRequest")
+      namespace = NAMESPACE,
+      localPart = LOCAL_PART)
   @ResponsePayload
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
       @RequestPayload InputEdiPiOrIcn request) {
@@ -41,6 +49,6 @@ public class MilitaryInfoEndpoint {
     EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
     noJaxbResponse = EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
-    return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
+    return milInfoFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
 }
