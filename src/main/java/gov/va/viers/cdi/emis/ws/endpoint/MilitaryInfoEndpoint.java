@@ -1,6 +1,7 @@
 package gov.va.viers.cdi.emis.ws.endpoint;
 
 import gov.va.EMISMapper;
+import gov.va.EMISMapperImpl;
 import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
@@ -50,9 +51,11 @@ public class MilitaryInfoEndpoint {
 
     try {
       if (!request.getEdipiORicn().getInputType().equals("edipi")) {
-        return generateEssError(requestSoapHeaders, "MIS-ERR-03", "INVALID_IDENTIFIER");
+        return generateMissingOrInvalidEdipiEssError(
+            requestSoapHeaders, "MIS-ERR-03", "INVALID_IDENTIFIER");
       } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
-        return generateEssError(requestSoapHeaders, "MIS-ERR-02", "MISSING_EDIPI");
+        return generateMissingOrInvalidEdipiEssError(
+            requestSoapHeaders, "MIS-ERR-02", "MISSING_EDIPI");
       }
     } catch (DatatypeConfigurationException e) {
       LOGGER.error("error while generating essError", e);
@@ -68,6 +71,17 @@ public class MilitaryInfoEndpoint {
     EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
     noJaxbResponse =
         EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
+
+    try {
+      if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")) {
+        EMISMapperImpl emisMapper = new EMISMapperImpl();
+        ESSErrorType essErrorType =
+            emisMapper.mapESSErrorType(dodResponse.getValue().getESSError());
+        return generateBadFormatEdipiEssError(essErrorType, requestSoapHeaders);
+      }
+    } catch (DatatypeConfigurationException e) {
+      LOGGER.error("error when generating badFormatEdipiEssError", e);
+    }
 
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
@@ -93,14 +107,31 @@ public class MilitaryInfoEndpoint {
     return requestSoapHeaders;
   }
 
-  private JAXBElement<EMISmilitaryServiceEligibilityResponseType> generateEssError(
-      InputHeaderInfo header, String errorCode, String errorType)
+  private JAXBElement<EMISmilitaryServiceEligibilityResponseType> generateBadFormatEdipiEssError(
+      ESSErrorType essErrorType, InputHeaderInfo inputHeaderInfo)
       throws DatatypeConfigurationException {
 
-    GregorianCalendar gregorianCalendar = new GregorianCalendar();
-    gregorianCalendar.setTime(new Date());
-    XMLGregorianCalendar xmlGregorianCalendar =
-        DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+    XMLGregorianCalendar xmlGregorianCalendar = xmlGregorianCalendarCurrentTime();
+
+    essErrorType.setCode("MIS-ERR-05");
+    essErrorType.setText("EDIPI_BAD_Format");
+    essErrorType.setEssCode("gov.va.ess.fault.io.InputOutputFault");
+    essErrorType.setEssText("EDIPI incorrectly formatted");
+    essErrorType.setTimestamp(xmlGregorianCalendar);
+    essErrorType.setServiceName("Veteran Eligibility");
+    essErrorType.setUserId(inputHeaderInfo.getUserId());
+    essErrorType.setCodePackage("gov.va.viers.emis.milinfo");
+    essErrorType.setServiceDomain("Military History");
+    essErrorType.setBusinessDomain("Enterprise Military Information");
+    return null;
+  }
+
+  private JAXBElement<EMISmilitaryServiceEligibilityResponseType>
+      generateMissingOrInvalidEdipiEssError(
+          InputHeaderInfo header, String errorCode, String errorType)
+          throws DatatypeConfigurationException {
+
+    XMLGregorianCalendar xmlGregorianCalendar = xmlGregorianCalendarCurrentTime();
 
     ESSErrorType essErrorType = new ESSErrorType();
     essErrorType.setEssTransactionID(header.getTransactionId().toString());
@@ -121,5 +152,12 @@ public class MilitaryInfoEndpoint {
         new EMISmilitaryServiceEligibilityResponseType();
     errorResponse.setESSError(essErrorType);
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(errorResponse);
+  }
+
+  private XMLGregorianCalendar xmlGregorianCalendarCurrentTime()
+      throws DatatypeConfigurationException {
+    GregorianCalendar gregorianCalendar = new GregorianCalendar();
+    gregorianCalendar.setTime(new Date());
+    return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
   }
 }
