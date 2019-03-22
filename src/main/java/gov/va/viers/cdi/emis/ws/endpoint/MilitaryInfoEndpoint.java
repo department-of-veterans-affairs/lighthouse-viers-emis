@@ -73,7 +73,8 @@ public class MilitaryInfoEndpoint {
         EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     try {
-      if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")) {
+      if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")
+          && dodResponse.getValue().getESSError().getEssText().equals("INVALID_EDIPI_INPUT")) {
         EMISMapperImpl emisMapper = new EMISMapperImpl();
         ESSErrorType essErrorType =
             emisMapper.mapESSErrorType(dodResponse.getValue().getESSError());
@@ -114,7 +115,7 @@ public class MilitaryInfoEndpoint {
     XMLGregorianCalendar xmlGregorianCalendar = xmlGregorianCalendarCurrentTime();
 
     essErrorType.setCode("MIS-ERR-05");
-    essErrorType.setText("EDIPI_BAD_Format");
+    essErrorType.setText("EDIPI_BAD_FORMAT");
     essErrorType.setEssCode("gov.va.ess.fault.io.InputOutputFault");
     essErrorType.setEssText("EDIPI incorrectly formatted");
     essErrorType.setTimestamp(xmlGregorianCalendar);
