@@ -38,38 +38,41 @@ public class MilitaryInfoClient {
         input.setEdipiORicn(edi);
         JAXBElement<InputEdiPiOrIcn> request = factory.createEMISmilitaryServiceEligibilityRequest(input);
 
-        JAXBElement<EMISmilitaryServiceEligibilityResponseType> response =
-                (JAXBElement<EMISmilitaryServiceEligibilityResponseType>) webServiceTemplate.marshalSendAndReceive(
-                    request, message -> {
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> response =
+        (JAXBElement<EMISmilitaryServiceEligibilityResponseType>)
+            webServiceTemplate.marshalSendAndReceive(
+                request,
+                new WebServiceMessageCallback() {
+
+                  @Override
+                  public void doWithMessage(WebServiceMessage message) {
                     try {
-                        // get the header from the SOAP message
-                        SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
+                      // get the header from the SOAP message
+                      SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
 
-                        // create the header element
-                        gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory objectFactory =new gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory();
+                      // create the header element
+                      gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory objectFactory =
+                          new gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory();
 
-                        InputHeaderInfo header = objectFactory.createInputHeaderInfo();
-                        header.setSourceSystemName("hello");
-                        header.setUserId("hello");
-                        header.setTransactionId("hello");
+                      InputHeaderInfo header = objectFactory.createInputHeaderInfo();
+                      header.setSourceSystemName("hello");
+                      header.setUserId("hello");
+                      header.setTransactionId("hello");
 
-                        JAXBElement<InputHeaderInfo> headers =
-                            objectFactory.createInputHeaderInfo(header);
+                      JAXBElement<InputHeaderInfo> headers =
+                          objectFactory.createInputHeaderInfo(header);
 
-                        // create a marshaller
-                        JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
-                        Marshaller marshaller = context.createMarshaller();
+                      // create a marshaller
+                      JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
+                      Marshaller marshaller = context.createMarshaller();
 
-                        // marshal the headers into the specified result
-                        marshaller.marshal(header, soapHeader.getResult());
+                      // marshal the headers into the specified result
+                      marshaller.marshal(headers, soapHeader.getResult());
                     } catch (Exception e) {
-                        LOGGER.error("error during marshalling of the SOAP headers", e);
+                      LOGGER.error("error during marshalling of the SOAP headers", e);
                     }
+                  }
                 });
-
-
-
-
 
         return response;
     }
