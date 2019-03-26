@@ -15,9 +15,14 @@
     <java.version>1.8</java.version>
     <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
     <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+    <fmt-maven-plugin.version>2.3.0</fmt-maven-plugin.version>
+    <google-java-format.version>1.5</google-java-format.version>
     <git.allowedBranchNames><![CDATA[^(master|release/.*|PR-[0-9]+|.*/API-[0-9]+-.*)$]]></git.allowedBranchNames>
     <git.enforceBranchNames>true</git.enforceBranchNames>
     <mapstruct.version>1.3.0.Final</mapstruct.version>
+    <spotbugs.version>3.1.7</spotbugs.version>
+    <findsecbugs-plugin.version>1.8.0</findsecbugs-plugin.version>
+    <spotbugs-maven-plugin.version>3.1.6</spotbugs-maven-plugin.version>
     <xml-format-maven-plugin.version>3.0.6</xml-format-maven-plugin.version>
   </properties>
   <dependencies>
@@ -92,6 +97,80 @@
           </execution>
         </executions>
       </plugin>
+      <!-- Java formatting -->
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <version>${fmt-maven-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.google.googlejavaformat</groupId>
+            <artifactId>google-java-format</artifactId>
+            <version>${google-java-format.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Force unix line endings -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>fix-line-endings</id>
+            <phase>process-sources</phase>
+            <configuration>
+              <target>
+                <fixcrlf eof="remove" eol="lf" excludes="**/*.png,**/*.jks" includes="pom.xml,*.md,src/**" srcDir="${project.basedir}"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Spotbugs -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs-maven-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>${findsecbugs-plugin.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <effort>Max</effort>
+              <threshold>Low</threshold>
+              <failOnError>true</failOnError>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Create mappers between the services we are client to and what we want to return-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -108,6 +187,7 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
+      <!-- Autogenerate classes for us to use when (un)marshalling SOAP messages-->
       <plugin>
         <groupId>org.jvnet.jaxb2.maven2</groupId>
         <artifactId>maven-jaxb2-plugin</artifactId>
