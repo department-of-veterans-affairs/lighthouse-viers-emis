@@ -68,10 +68,6 @@ public class MilitaryInfoEndpoint {
             dodClient.getMilitaryServiceEligibilityResponse(
                 request.getEdipiORicn().getEdipiORicnValue());
 
-    EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
-    noJaxbResponse =
-        EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
-
     try {
       if (dodResponse.getValue().getESSError() != null) {
         if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")
@@ -85,6 +81,10 @@ public class MilitaryInfoEndpoint {
     } catch (DatatypeConfigurationException e) {
       LOGGER.error("error when generating badFormatEdipiEssError", e);
     }
+
+    EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
+    noJaxbResponse =
+        EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }

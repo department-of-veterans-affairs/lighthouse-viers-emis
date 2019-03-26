@@ -35,7 +35,6 @@ public class MilitaryInfoTests {
   @Autowired private DoDAdapterClient dodClient;
 
   public void initSuccessMock() {
-    EMISmilitaryServiceEligibilityResponseType dodResponse;
     String sampleResponsePath = "exampleSuccessVadirResponse_MilInfoEligSvc.xml";
     JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
         getSampleJaxbDodResponse(sampleResponsePath);
@@ -45,7 +44,6 @@ public class MilitaryInfoTests {
   }
 
   public void initBadFormatMock() {
-    EMISmilitaryServiceEligibilityResponseType dodResponse;
     String sampleResponsePath = "exampleBadFormatVadirResponse_MilInfoEligSvc.xml";
     JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
         getSampleJaxbDodResponse(sampleResponsePath);
