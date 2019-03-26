@@ -126,7 +126,11 @@ public class MilitaryInfoEndpoint {
     essErrorType.setCodePackage("gov.va.viers.emis.milinfo");
     essErrorType.setServiceDomain("Military History");
     essErrorType.setBusinessDomain("Enterprise Military Information");
-    return null;
+
+    EMISmilitaryServiceEligibilityResponseType errorResponse =
+        new EMISmilitaryServiceEligibilityResponseType();
+    errorResponse.setESSError(essErrorType);
+    return objectFactory.createEMISmilitaryServiceEligibilityResponse(errorResponse);
   }
 
   private JAXBElement<EMISmilitaryServiceEligibilityResponseType>
