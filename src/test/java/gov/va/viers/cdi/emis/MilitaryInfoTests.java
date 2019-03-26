@@ -36,10 +36,31 @@ public class MilitaryInfoTests {
 
   public void initSuccessMock() {
     EMISmilitaryServiceEligibilityResponseType dodResponse;
+    String sampleResponsePath = "exampleSuccessVadirResponse_MilInfoEligSvc.xml";
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
+        getSampleJaxbDodResponse(sampleResponsePath);
+    Mockito.doReturn(jaxbDodResponse)
+        .when(dodClient)
+        .getMilitaryServiceEligibilityResponse("6001010072");
+  }
+
+  public void initBadFormatMock() {
+    EMISmilitaryServiceEligibilityResponseType dodResponse;
+    String sampleResponsePath = "exampleBadFormatVadirResponse_MilInfoEligSvc.xml";
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
+        getSampleJaxbDodResponse(sampleResponsePath);
+    Mockito.doReturn(jaxbDodResponse)
+        .when(dodClient)
+        .getMilitaryServiceEligibilityResponse("BADEDIPI01");
+  }
+
+  private JAXBElement<EMISmilitaryServiceEligibilityResponseType> getSampleJaxbDodResponse(
+      String sampleResponsePath) {
+    EMISmilitaryServiceEligibilityResponseType dodResponse;
     try {
       // Grabbing from classpath
       ClassPathResource sampleResponse =
-          new ClassPathResource("/vadirResponses/exampleSuccessVadirResponse_MilInfoEligSvc.xml");
+          new ClassPathResource("/vadirResponses/" + sampleResponsePath);
       InputStream inputStream = sampleResponse.getInputStream();
       dodResponse = JAXB.unmarshal(inputStream, EMISmilitaryServiceEligibilityResponseType.class);
     } catch (IOException e) {
@@ -50,9 +71,50 @@ public class MilitaryInfoTests {
     ObjectFactory objectFactory = new ObjectFactory();
     JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
         objectFactory.createEMISmilitaryServiceEligibilityResponse(dodResponse);
-    Mockito.doReturn(jaxbDodResponse)
-        .when(dodClient)
-        .getMilitaryServiceEligibilityResponse("6001010072");
+    return jaxbDodResponse;
+  }
+
+  @Test
+  public void getMilitaryServiceEligibilityInvalidIdentifier() {
+    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+        response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "ICN");
+
+    assertThat(
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
+        .isEqualTo("MIS-ERR-03");
+  }
+
+  @Test
+  public void getMilitaryServiceEligibilityMissingEdipi() {
+    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+        response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI");
+
+    assertThat(
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
+        .isEqualTo("MIS-ERR-02");
+  }
+
+  @Test
+  public void getMilitaryServiceEligibilityBadFormat() {
+    initBadFormatMock();
+    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+        response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI");
+
+    assertThat(
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
+        .isEqualTo("MIS-ERR-05");
   }
 
   @Test

@@ -50,7 +50,7 @@ public class MilitaryInfoEndpoint {
     requestSoapHeaders = getInputHeaderInfo(soapHeaderElement, requestSoapHeaders);
 
     try {
-      if (!request.getEdipiORicn().getInputType().equals("edipi")) {
+      if (!request.getEdipiORicn().getInputType().equals("EDIPI")) {
         return generateMissingOrInvalidEdipiEssError(
             requestSoapHeaders, "MIS-ERR-03", "INVALID_IDENTIFIER");
       } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
@@ -73,12 +73,14 @@ public class MilitaryInfoEndpoint {
         EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     try {
-      if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")
-          && dodResponse.getValue().getESSError().getEssText().equals("INVALID_EDIPI_INPUT")) {
-        EMISMapperImpl emisMapper = new EMISMapperImpl();
-        ESSErrorType essErrorType =
-            emisMapper.mapESSErrorType(dodResponse.getValue().getESSError());
-        return generateBadFormatEdipiEssError(essErrorType, requestSoapHeaders);
+      if (dodResponse.getValue().getESSError() != null) {
+        if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")
+            && dodResponse.getValue().getESSError().getEssText().equals("INVALID_EDIPI_INPUT")) {
+          EMISMapperImpl emisMapper = new EMISMapperImpl();
+          ESSErrorType essErrorType =
+              emisMapper.mapESSErrorType(dodResponse.getValue().getESSError());
+          return generateBadFormatEdipiEssError(essErrorType, requestSoapHeaders);
+        }
       }
     } catch (DatatypeConfigurationException e) {
       LOGGER.error("error when generating badFormatEdipiEssError", e);
