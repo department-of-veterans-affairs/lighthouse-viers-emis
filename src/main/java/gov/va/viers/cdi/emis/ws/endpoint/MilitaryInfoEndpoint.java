@@ -47,7 +47,7 @@ public class MilitaryInfoEndpoint {
           SoapHeaderElement soapHeaderElement) {
 
     InputHeaderInfo requestSoapHeaders = new InputHeaderInfo();
-    requestSoapHeaders = getInputHeaderInfo(soapHeaderElement, requestSoapHeaders);
+    requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
 
     try {
       if (!request.getEdipiORicn().getInputType().equals("EDIPI")) {
@@ -70,27 +70,27 @@ public class MilitaryInfoEndpoint {
 
     try {
       if (dodResponse.getValue().getESSError() != null) {
-        if (dodResponse.getValue().getESSError().getESSResponseCode().equals("ERROR")
-            && dodResponse.getValue().getESSError().getEssText().equals("INVALID_EDIPI_INPUT")) {
+        if ("ERROR".equals(dodResponse.getValue().getESSError().getESSResponseCode())
+            && "INVALID_EDIPI_INPUT".equals(dodResponse.getValue().getESSError().getText())) {
           EMISMapperImpl emisMapper = new EMISMapperImpl();
           ESSErrorType essErrorType =
               emisMapper.mapESSErrorType(dodResponse.getValue().getESSError());
-          return generateBadFormatEdipiEssError(essErrorType, requestSoapHeaders);
+          return generateBadFormatEdipiEssError(requestSoapHeaders);
         }
       }
     } catch (DatatypeConfigurationException e) {
       LOGGER.error("error when generating badFormatEdipiEssError", e);
     }
 
-    EMISmilitaryServiceEligibilityResponseType noJaxbResponse;
-    noJaxbResponse =
+    EMISmilitaryServiceEligibilityResponseType noJaxbResponse =
         EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
 
   private InputHeaderInfo getInputHeaderInfo(
-      SoapHeaderElement soapHeaderElement, InputHeaderInfo requestSoapHeaders) {
+          SoapHeaderElement soapHeaderElement) {
+      InputHeaderInfo requestSoapHeaders = new InputHeaderInfo();
     try {
       // create unmarshaller
       JAXBContext context =
@@ -111,11 +111,12 @@ public class MilitaryInfoEndpoint {
   }
 
   private JAXBElement<EMISmilitaryServiceEligibilityResponseType> generateBadFormatEdipiEssError(
-      ESSErrorType essErrorType, InputHeaderInfo inputHeaderInfo)
+          InputHeaderInfo inputHeaderInfo)
       throws DatatypeConfigurationException {
 
     XMLGregorianCalendar xmlGregorianCalendar = xmlGregorianCalendarCurrentTime();
 
+    ESSErrorType essErrorType = new ESSErrorType();
     essErrorType.setCode("MIS-ERR-05");
     essErrorType.setText("EDIPI_BAD_FORMAT");
     essErrorType.setEssCode("gov.va.ess.fault.io.InputOutputFault");

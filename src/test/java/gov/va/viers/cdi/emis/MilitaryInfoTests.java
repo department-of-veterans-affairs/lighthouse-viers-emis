@@ -34,26 +34,7 @@ public class MilitaryInfoTests {
 
   @Autowired private DoDAdapterClient dodClient;
 
-  public void initSuccessMock() {
-    String sampleResponsePath = "exampleSuccessVadirResponse_MilInfoEligSvc.xml";
-    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
-        getSampleJaxbDodResponse(sampleResponsePath);
-    Mockito.doReturn(jaxbDodResponse)
-        .when(dodClient)
-        .getMilitaryServiceEligibilityResponse("6001010072");
-  }
-
-  public void initBadFormatMock() {
-    String sampleResponsePath = "exampleBadFormatVadirResponse_MilInfoEligSvc.xml";
-    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
-        getSampleJaxbDodResponse(sampleResponsePath);
-    Mockito.doReturn(jaxbDodResponse)
-        .when(dodClient)
-        .getMilitaryServiceEligibilityResponse("BADEDIPI01");
-  }
-
-  private JAXBElement<EMISmilitaryServiceEligibilityResponseType> getSampleJaxbDodResponse(
-      String sampleResponsePath) {
+  private void initMock(String sampleResponsePath, String edipi) {
     EMISmilitaryServiceEligibilityResponseType dodResponse;
     try {
       // Grabbing from classpath
@@ -67,9 +48,10 @@ public class MilitaryInfoTests {
     }
     // Have to wrap in JAXBElement to match method signature
     ObjectFactory objectFactory = new ObjectFactory();
-    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse1 =
         objectFactory.createEMISmilitaryServiceEligibilityResponse(dodResponse);
-    return jaxbDodResponse;
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse = jaxbDodResponse1;
+    Mockito.doReturn(jaxbDodResponse).when(dodClient).getMilitaryServiceEligibilityResponse(edipi);
   }
 
   @Test
@@ -102,7 +84,7 @@ public class MilitaryInfoTests {
 
   @Test
   public void getMilitaryServiceEligibilityBadFormat() {
-    initBadFormatMock();
+    initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
         response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI");
 
@@ -117,7 +99,7 @@ public class MilitaryInfoTests {
 
   @Test
   public void getMilitaryServiceEligibilitySuccess() {
-    initSuccessMock();
+    initMock("exampleSuccessVadirResponse_MilInfoEligSvc.xml", "6001010072");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
         response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI");
 
