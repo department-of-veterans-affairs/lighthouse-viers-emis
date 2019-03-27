@@ -43,14 +43,13 @@ public class MilitaryInfoTests {
       InputStream inputStream = sampleResponse.getInputStream();
       dodResponse = JAXB.unmarshal(inputStream, EMISmilitaryServiceEligibilityResponseType.class);
     } catch (IOException e) {
-      LOGGER.debug("File not found, check resources folder");
+      LOGGER.debug("Could not find " + sampleResponsePath + ", check resources folder: " + e);
       dodResponse = null;
     }
     // Have to wrap in JAXBElement to match method signature
     ObjectFactory objectFactory = new ObjectFactory();
-    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse1 =
+    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse =
         objectFactory.createEMISmilitaryServiceEligibilityResponse(dodResponse);
-    JAXBElement<EMISmilitaryServiceEligibilityResponseType> jaxbDodResponse = jaxbDodResponse1;
     Mockito.doReturn(jaxbDodResponse).when(dodClient).getMilitaryServiceEligibilityResponse(edipi);
   }
 
