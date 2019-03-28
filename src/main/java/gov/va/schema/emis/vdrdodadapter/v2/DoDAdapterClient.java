@@ -3,6 +3,7 @@ package gov.va.schema.emis.vdrdodadapter.v2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
 import javax.xml.bind.JAXBElement;
@@ -10,6 +11,7 @@ import javax.xml.bind.JAXBElement;
 public class DoDAdapterClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(DoDAdapterClient.class);
 
+  @Qualifier("dodAdapterWebServiceTemplate")
   @Autowired private WebServiceTemplate DoDAdapterWebServiceTemplate;
 
   private ObjectFactory factory = new ObjectFactory();

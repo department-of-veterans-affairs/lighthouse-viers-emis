@@ -13,14 +13,14 @@ import javax.xml.soap.SOAPException;
 @Configuration
 public class DoDAdapterClientConfig {
 
-  @Bean
+  @Bean(name = "dodAdapterJaxb2Marshaller")
   Jaxb2Marshaller jaxb2Marshaller() {
     Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
     jaxb2Marshaller.setContextPath("gov.va.schema.emis.vdrdodadapter.v2");
     return jaxb2Marshaller;
   }
 
-  @Bean
+  @Bean(name = "dodAdapterWebServiceTemplate")
   public WebServiceTemplate webServiceTemplate() throws SOAPException {
     MessageFactory messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
     SaajSoapMessageFactory saajSoapMessageFactory = new SaajSoapMessageFactory(messageFactory);
