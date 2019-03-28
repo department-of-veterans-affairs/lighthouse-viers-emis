@@ -36,6 +36,18 @@
             <artifactId>mapstruct-jdk8</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-support -->
+      <dependency>
+        <groupId>org.springframework.ws</groupId>
+        <artifactId>spring-ws-support</artifactId>
+        <version>3.0.7.RELEASE</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-security -->
+      <dependency>
+        <groupId>org.springframework.ws</groupId>
+        <artifactId>spring-ws-security</artifactId>
+        <version>3.0.7.RELEASE</version>
+      </dependency>
     </dependencies>
 
     <build>
