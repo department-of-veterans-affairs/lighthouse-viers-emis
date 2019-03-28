@@ -3,6 +3,9 @@ package gov.va.schema.emis.vdrdodadapter.v2;
 import javax.net.ssl.HostnameVerifier;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPConstants;
+import javax.xml.soap.SOAPException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +19,7 @@ import org.springframework.ws.transport.http.HttpsUrlConnectionMessageSender;
 
 @Configuration
 public class DoDAdapterClientConfig {
+  private static final Logger LOGGER = LoggerFactory.getLogger(DoDAdapterClientConfig.class);
 
   @Value("${client.dod.default-uri}")
   private String defaultUri;
@@ -34,8 +38,13 @@ public class DoDAdapterClientConfig {
   }
 
   @Bean(name = "dodAdapterWebServiceTemplate")
-  public WebServiceTemplate webServiceTemplate() throws Exception {
-    MessageFactory messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
+  public WebServiceTemplate webServiceTemplate() {
+    MessageFactory messageFactory = null;
+    try {
+      messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
+    } catch (SOAPException e) {
+      LOGGER.error("Failed to set SOAP_1_2_PROTOCOL",e);
+    }
     SaajSoapMessageFactory saajSoapMessageFactory = new SaajSoapMessageFactory(messageFactory);
 
     WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
@@ -43,7 +52,11 @@ public class DoDAdapterClientConfig {
     webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
     webServiceTemplate.setDefaultUri(defaultUri);
     webServiceTemplate.setMessageFactory(saajSoapMessageFactory);
-    webServiceTemplate.setMessageSender(httpsUrlConnectionMessageSender());
+    try {
+      webServiceTemplate.setMessageSender(httpsUrlConnectionMessageSender());
+    } catch (Exception e) {
+      LOGGER.error("Failed to set message sender",e);
+    }
 
     return webServiceTemplate;
   }
