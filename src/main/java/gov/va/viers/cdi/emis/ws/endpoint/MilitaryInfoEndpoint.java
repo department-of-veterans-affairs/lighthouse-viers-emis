@@ -2,6 +2,7 @@ package gov.va.viers.cdi.emis.ws.endpoint;
 
 import gov.va.EMISMapper;
 import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
+import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
@@ -36,13 +37,19 @@ public class MilitaryInfoEndpoint {
       @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
           SoapHeaderElement soapHeaderElement) {
 
-    ESSErrorBuilder essErrorBuilder = new ESSErrorBuilder(soapHeaderElement);
-
     if (!request.getEdipiORicn().getInputType().equals("EDIPI")) {
-      return essErrorBuilder.generateMissingOrInvalidEdipiEssError(
-          "MIS-ERR-03", "INVALID_IDENTIFIER");
+      ESSErrorType essErrorType =
+          ESSErrorBuilder.buildEssError(
+              soapHeaderElement,
+              "MIS-ERR-03",
+              "INVALID_IDENTIFIER",
+              "Invalid Parameter Identifier");
+      return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
     } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
-      return essErrorBuilder.generateMissingOrInvalidEdipiEssError("MIS-ERR-02", "MISSING_EDIPI");
+      ESSErrorType essErrorType =
+          ESSErrorBuilder.buildEssError(
+              soapHeaderElement, "MIS-ERR-02", "MISSING_EDIPI", "Invalid Parameter Identifier");
+      return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
     }
 
     /* This should probably be wrapped in some null checks, not sure what EMIS does in those cases
@@ -55,7 +62,10 @@ public class MilitaryInfoEndpoint {
     if (dodResponse.getValue().getESSError() != null) {
       if ("ERROR".equals(dodResponse.getValue().getESSError().getESSResponseCode())
           && "INVALID_EDIPI_INPUT".equals(dodResponse.getValue().getESSError().getText())) {
-        return essErrorBuilder.generateBadFormatEdipiEssError(dodResponse.getValue().getESSError());
+        ESSErrorType essErrorType =
+            ESSErrorBuilder.buildEssError(
+                soapHeaderElement, "MIS-ERR-05", "EDIPI_BAD_FORMAT", "EDIPI incorrectly formatted");
+        return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
       }
     }
 
@@ -63,5 +73,14 @@ public class MilitaryInfoEndpoint {
         EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse.getValue());
 
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
+  }
+
+  private JAXBElement<EMISmilitaryServiceEligibilityResponseType>
+      getEmisMilitaryServiceEligibilityResponseTypeEssError(ESSErrorType essErrorType) {
+    EMISmilitaryServiceEligibilityResponseType emiSmilitaryServiceEligibilityResponseType =
+        new EMISmilitaryServiceEligibilityResponseType();
+    emiSmilitaryServiceEligibilityResponseType.setESSError(essErrorType);
+    return objectFactory.createEMISmilitaryServiceEligibilityResponse(
+        emiSmilitaryServiceEligibilityResponseType);
   }
 }
