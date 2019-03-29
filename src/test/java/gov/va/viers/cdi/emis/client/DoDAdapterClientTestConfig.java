@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 public class DoDAdapterClientTestConfig {
     @Bean
     @Primary
-    public DoDAdapterClient doDAdapterClient() {
+    public DoDAdapterClient dodAdapterClient() {
         return Mockito.mock(DoDAdapterClient.class);
     }
 }
