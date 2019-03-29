@@ -1,12 +1,10 @@
-package gov.va.viers.cdi.emis;
+package gov.va;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan({"gov.va."})
 public class SpringWsApplication {
 
   public static void main(String[] args) {
