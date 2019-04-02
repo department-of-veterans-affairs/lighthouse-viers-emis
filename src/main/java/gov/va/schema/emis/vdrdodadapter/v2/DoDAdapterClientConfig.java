@@ -14,9 +14,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
+import org.springframework.ws.soap.security.support.KeyManagersFactoryBean;
 import org.springframework.ws.soap.security.support.KeyStoreFactoryBean;
 import org.springframework.ws.soap.security.support.TrustManagersFactoryBean;
 import org.springframework.ws.transport.http.HttpsUrlConnectionMessageSender;
+
 
 @Configuration
 @PropertySource("classpath:client.properties")
@@ -31,6 +33,12 @@ public class DoDAdapterClientConfig {
 
   @Value("${client.ssl.trust-store-password}")
   private String trustStorePassword;
+
+  @Value("${client.ssl.key-store}")
+  private Resource keyStore;
+
+  @Value("${client.ssl.key-store-password}")
+  private String keyStorePassword;
 
   @Bean(name = "dodAdapterJaxb2Marshaller")
   Jaxb2Marshaller jaxb2Marshaller() {
@@ -68,6 +76,7 @@ public class DoDAdapterClientConfig {
     HttpsUrlConnectionMessageSender httpsUrlConnectionMessageSender =
         new HttpsUrlConnectionMessageSender();
     httpsUrlConnectionMessageSender.setTrustManagers(trustManagersFactoryBean().getObject());
+    httpsUrlConnectionMessageSender.setKeyManagers(keyManagersFactoryBean().getObject());
     // allows the client to skip host name verification as otherwise following error is thrown:
     // java.security.cert.CertificateException: No name matching localhost found
     httpsUrlConnectionMessageSender.setHostnameVerifier(new HostnameVerifier() {
@@ -90,6 +99,24 @@ public class DoDAdapterClientConfig {
     keyStoreFactoryBean.setPassword(trustStorePassword);
 
     return keyStoreFactoryBean;
+  }
+
+  @Bean
+  public KeyStoreFactoryBean keyStore() {
+    KeyStoreFactoryBean keyStoreFactoryBean = new KeyStoreFactoryBean();
+    keyStoreFactoryBean.setLocation(keyStore);
+    keyStoreFactoryBean.setPassword(keyStorePassword);
+
+    return keyStoreFactoryBean;
+  }
+
+  @Bean
+  public KeyManagersFactoryBean keyManagersFactoryBean() {
+    KeyManagersFactoryBean keyManagersFactoryBean = new KeyManagersFactoryBean();
+    keyManagersFactoryBean.setKeyStore(keyStore().getObject());
+    keyManagersFactoryBean.setPassword(keyStorePassword);
+
+    return keyManagersFactoryBean;
   }
 
   @Bean
