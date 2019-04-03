@@ -24,12 +24,19 @@ public class ESSErrorBuilder {
       SoapHeaderElement soapHeaderElement, String errorCode, String errorType, String essText) {
 
     XMLGregorianCalendar xmlGregorianCalendarCurrentTime = xmlGregorianCalendarCurrentTime();
-    InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
 
     ESSErrorType essErrorType = new ESSErrorType();
 
-    if (requestSoapHeaders.getTransactionId() != null) {
-      essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
+    if (soapHeaderElement != null) {
+      if (soapHeaderElement.getResult() != null) {
+        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
+        if (requestSoapHeaders != null) {
+          if (requestSoapHeaders.getTransactionId() != null) {
+            essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
+          }
+          essErrorType.setUserId(requestSoapHeaders.getUserId());
+        }
+      }
     }
     essErrorType.setESSResponseCode("ERROR");
     essErrorType.setCode(errorCode);
@@ -39,7 +46,6 @@ public class ESSErrorBuilder {
     essErrorType.setSeverity("Error");
     essErrorType.setTimestamp(xmlGregorianCalendarCurrentTime);
     essErrorType.setServiceName("Veteran Eligibility");
-    essErrorType.setUserId(requestSoapHeaders.getUserId());
     essErrorType.setCodePackage("gov.va.viers.emis.milinfo");
     essErrorType.setServiceDomain("Military History");
     essErrorType.setBusinessDomain("Enterprise Military Information");
