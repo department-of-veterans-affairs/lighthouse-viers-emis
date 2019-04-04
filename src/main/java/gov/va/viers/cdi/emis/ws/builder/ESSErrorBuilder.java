@@ -4,6 +4,7 @@ import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -14,6 +15,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.soap.SoapHeader;
+import org.springframework.ws.soap.SoapHeaderElement;
 
 public class ESSErrorBuilder {
 
@@ -25,10 +27,11 @@ public class ESSErrorBuilder {
     XMLGregorianCalendar xmlGregorianCalendarCurrentTime = xmlGregorianCalendarCurrentTime();
 
     ESSErrorType essErrorType = new ESSErrorType();
-
-    if (soapHeader != null) {
-      if (soapHeader.getResult() != null) {
-        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeader);
+      Iterator<SoapHeaderElement> soapHeaderElementIterator  = soapHeader.examineAllHeaderElements();
+      if (soapHeaderElementIterator.hasNext()){
+       SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
+      if (soapHeaderElement.getResult() != null) {
+        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
         if (requestSoapHeaders != null) {
           essErrorType.setUserId(requestSoapHeaders.getUserId());
           if (requestSoapHeaders.getTransactionId() != null) {
@@ -64,7 +67,7 @@ public class ESSErrorBuilder {
     return null;
   }
 
-  private static InputHeaderInfo getInputHeaderInfo(SoapHeader soapHeader) {
+  private static InputHeaderInfo getInputHeaderInfo(SoapHeaderElement soapHeaderElement) {
     InputHeaderInfo requestSoapHeaders = new InputHeaderInfo();
     try {
       // create unmarshaller
@@ -74,7 +77,7 @@ public class ESSErrorBuilder {
 
       // unmarshall header
       JAXBElement<InputHeaderInfo> headers =
-          (JAXBElement<InputHeaderInfo>) unmarshaller.unmarshal(soapHeader.getSource());
+          (JAXBElement<InputHeaderInfo>) unmarshaller.unmarshal(soapHeaderElement.getSource());
 
       // get header values
       requestSoapHeaders = headers.getValue();
