@@ -31,10 +31,11 @@ public class ESSErrorBuilder {
       if (soapHeaderElement.getResult() != null) {
         InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
         if (requestSoapHeaders != null) {
+          essErrorType.setUserId(requestSoapHeaders.getUserId());
           if (requestSoapHeaders.getTransactionId() != null) {
             essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
           }
-          essErrorType.setUserId(requestSoapHeaders.getUserId());
+          //TODO else generate transaction id and set it.
         }
       }
     }
