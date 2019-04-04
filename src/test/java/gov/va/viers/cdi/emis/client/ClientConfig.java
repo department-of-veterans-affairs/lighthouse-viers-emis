@@ -15,8 +15,8 @@ import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 @PropertySource("classpath:client.properties")
 public class ClientConfig {
 
-    @Value("${client.default-uri}")  String defaultUri;
-    @Value("${client.context-path}") String contextPath;
+    @Value("${client.emis.default-uri}")  String defaultUri;
+    @Value("${client.emis.context-path}") String contextPath;
 
 
     @Bean
