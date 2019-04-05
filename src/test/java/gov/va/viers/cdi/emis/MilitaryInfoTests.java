@@ -124,7 +124,6 @@ public class MilitaryInfoTests {
   }
 
   @Test
-
   public void getMilitaryServiceEligibilityEmptyResponse() {
     initMock("emptyVadirResponse_MilInfoEligSvc.xml", "1234567890");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
@@ -137,6 +136,7 @@ public class MilitaryInfoTests {
             .isEmpty());
     }
 
+  @Test
   public void getMilitaryServiceEligibilityBadFormatNullHeaders() {
     initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
