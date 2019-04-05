@@ -124,6 +124,19 @@ public class MilitaryInfoTests {
   }
 
   @Test
+  public void getMilitaryServiceEligibilityEmptyResponse() {
+    initMock("emptyVadirResponse_MilInfoEligSvc.xml", "1234567890");
+    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+        response = emisClient.getMilitaryServiceEligibilityResponse("1234567890", "EDIPI", false);
+
+    assertThat(Optional.ofNullable(response)
+            .map(r -> r.getValue())
+            .map(v -> v.getMilitaryServiceEligibility())
+            .orElse(null)
+            .isEmpty());
+    }
+
+  @Test
   public void getMilitaryServiceEligibilityBadFormatNullHeaders() {
     initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>

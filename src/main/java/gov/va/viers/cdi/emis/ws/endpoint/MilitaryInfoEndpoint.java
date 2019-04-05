@@ -58,7 +58,10 @@ public class MilitaryInfoEndpoint {
             dodClient.getMilitaryServiceEligibilityResponse(
                 request.getEdipiORicn().getEdipiORicnValue());
 
-    if (dodResponse.getValue().getESSError() != null) {
+    if (dodResponse.getValue() == null) {
+      return objectFactory.createEMISmilitaryServiceEligibilityResponse(new EMISmilitaryServiceEligibilityResponseType());
+    }
+    else if (dodResponse.getValue().getESSError() != null) {
       if ("ERROR".equals(dodResponse.getValue().getESSError().getESSResponseCode())
           && "INVALID_EDIPI_INPUT".equals(dodResponse.getValue().getESSError().getText())) {
         ESSErrorType essErrorType =
