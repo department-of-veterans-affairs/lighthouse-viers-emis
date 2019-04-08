@@ -2,10 +2,9 @@ package gov.va.viers.cdi.emis.ws.builder;
 
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.ws.soap.SoapHeaderElement;
-
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -13,23 +12,34 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.ws.soap.SoapHeader;
+import org.springframework.ws.soap.SoapHeaderElement;
 
 public class ESSErrorBuilder {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ESSErrorBuilder.class);
 
   public static ESSErrorType buildEssError(
-      SoapHeaderElement soapHeaderElement, String errorCode, String errorType, String essText) {
+      SoapHeader soapHeader, String errorCode, String errorType, String essText) {
 
     XMLGregorianCalendar xmlGregorianCalendarCurrentTime = xmlGregorianCalendarCurrentTime();
-    InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
 
     ESSErrorType essErrorType = new ESSErrorType();
-
-    if (requestSoapHeaders.getTransactionId() != null) {
-      essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
+      Iterator<SoapHeaderElement> soapHeaderElementIterator  = soapHeader.examineAllHeaderElements();
+      if (soapHeaderElementIterator.hasNext()){
+       SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
+      if (soapHeaderElement.getResult() != null) {
+        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
+        if (requestSoapHeaders != null) {
+          essErrorType.setUserId(requestSoapHeaders.getUserId());
+          if (requestSoapHeaders.getTransactionId() != null) {
+            essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
+          }
+          //TODO else generate transaction id and set it.
+        }
+      }
     }
     essErrorType.setESSResponseCode("ERROR");
     essErrorType.setCode(errorCode);
@@ -39,7 +49,6 @@ public class ESSErrorBuilder {
     essErrorType.setSeverity("Error");
     essErrorType.setTimestamp(xmlGregorianCalendarCurrentTime);
     essErrorType.setServiceName("Veteran Eligibility");
-    essErrorType.setUserId(requestSoapHeaders.getUserId());
     essErrorType.setCodePackage("gov.va.viers.emis.milinfo");
     essErrorType.setServiceDomain("Military History");
     essErrorType.setBusinessDomain("Enterprise Military Information");

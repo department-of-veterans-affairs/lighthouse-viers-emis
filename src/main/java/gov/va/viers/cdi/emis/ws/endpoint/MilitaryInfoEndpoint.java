@@ -14,7 +14,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.SoapHeaderElement;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
 import javax.xml.bind.JAXBElement;
@@ -35,12 +34,12 @@ public class MilitaryInfoEndpoint {
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
       @RequestPayload InputEdiPiOrIcn request,
       @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
-          SoapHeaderElement soapHeaderElement) {
+          org.springframework.ws.soap.SoapHeader soapHeader) {
 
     if (!request.getEdipiORicn().getInputType().equals("EDIPI")) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
-              soapHeaderElement,
+              soapHeader,
               "MIS-ERR-03",
               "INVALID_IDENTIFIER",
               "Invalid Parameter Identifier");
@@ -48,7 +47,7 @@ public class MilitaryInfoEndpoint {
     } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
-              soapHeaderElement, "MIS-ERR-02", "MISSING_EDIPI", "Invalid Parameter Identifier");
+              soapHeader, "MIS-ERR-02", "MISSING_EDIPI", "Invalid Parameter Identifier");
       return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
     }
 
@@ -59,12 +58,15 @@ public class MilitaryInfoEndpoint {
             dodClient.getMilitaryServiceEligibilityResponse(
                 request.getEdipiORicn().getEdipiORicnValue());
 
-    if (dodResponse.getValue().getESSError() != null) {
+    if (dodResponse.getValue() == null) {
+      return objectFactory.createEMISmilitaryServiceEligibilityResponse(new EMISmilitaryServiceEligibilityResponseType());
+    }
+    else if (dodResponse.getValue().getESSError() != null) {
       if ("ERROR".equals(dodResponse.getValue().getESSError().getESSResponseCode())
           && "INVALID_EDIPI_INPUT".equals(dodResponse.getValue().getESSError().getText())) {
         ESSErrorType essErrorType =
             ESSErrorBuilder.buildEssError(
-                soapHeaderElement, "MIS-ERR-05", "EDIPI_BAD_FORMAT", "EDIPI incorrectly formatted");
+                soapHeader, "MIS-ERR-05", "EDIPI_BAD_FORMAT", "EDIPI incorrectly formatted");
         return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
       }
     }
