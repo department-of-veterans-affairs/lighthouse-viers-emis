@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
-
 public class ServiceEligibilityTransformersTest {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEligibilityTransformersTest.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(ServiceEligibilityTransformersTest.class);
   EMISmilitaryServiceEligibilityResponseType emisResponse;
   gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType dodResponse;
 
@@ -23,12 +23,15 @@ public class ServiceEligibilityTransformersTest {
     try {
       ClassPathResource emisSampleResponse =
           new ClassPathResource("/samples/emisSampleResponse.xml");
-      ClassPathResource dodSampleResponse =
-          new ClassPathResource("/samples/dodSampleResponse.xml");
+      ClassPathResource dodSampleResponse = new ClassPathResource("/samples/dodSampleResponse.xml");
       InputStream emisInputStream = emisSampleResponse.getInputStream();
       InputStream dodInputStream = dodSampleResponse.getInputStream();
-      emisResponse = JAXB.unmarshal(emisInputStream, EMISmilitaryServiceEligibilityResponseType.class);
-      dodResponse = JAXB.unmarshal(dodInputStream, gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType.class);
+      emisResponse =
+          JAXB.unmarshal(emisInputStream, EMISmilitaryServiceEligibilityResponseType.class);
+      dodResponse =
+          JAXB.unmarshal(
+              dodInputStream,
+              gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType.class);
     } catch (IOException e) {
       LOGGER.debug("File not found, check resources folder", e);
       emisResponse = null;
@@ -37,9 +40,10 @@ public class ServiceEligibilityTransformersTest {
   }
 
   @Test
-  public void serviceEligibilityTransformersTest(){
+  public void serviceEligibilityTransformersTest() {
     initializeResponses();
-    EMISmilitaryServiceEligibilityResponseType transformedDodResponse = EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse);
+    EMISmilitaryServiceEligibilityResponseType transformedDodResponse =
+        EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(dodResponse);
     assertThat(transformedDodResponse).isEqualToComparingFieldByFieldRecursively(emisResponse);
   }
 }

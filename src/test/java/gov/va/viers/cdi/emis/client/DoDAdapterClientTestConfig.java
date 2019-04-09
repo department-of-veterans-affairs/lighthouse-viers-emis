@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Profile;
 @Profile("test")
 @Configuration
 public class DoDAdapterClientTestConfig {
-    @Bean
-    @Primary
-    public DoDAdapterClient doDAdapterClient() {
-        return Mockito.mock(DoDAdapterClient.class);
-    }
+  @Bean
+  @Primary
+  public DoDAdapterClient dodAdapterClient() {
+    return Mockito.mock(DoDAdapterClient.class);
+  }
 }

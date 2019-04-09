@@ -14,11 +14,10 @@ import gov.va.viers.cdi.emis.commonservice.v2.PayGradeData;
 import gov.va.viers.cdi.emis.commonservice.v2.PersonnelDutyStatusCodeType;
 import gov.va.viers.cdi.emis.commonservice.v2.PurpleHeartOrMohData;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 @Mapper()
 public interface EMISMapper {

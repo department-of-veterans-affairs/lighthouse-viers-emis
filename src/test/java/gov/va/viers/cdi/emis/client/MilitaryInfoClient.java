@@ -12,33 +12,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.client.core.WebServiceTemplate;
-import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.SoapHeader;
 import org.springframework.ws.soap.SoapMessage;
 
 @Component
 public class MilitaryInfoClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-        MilitaryInfoClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoClient.class);
 
   ObjectFactory requestFactory = new ObjectFactory();
 
   gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory headerFactory =
       new gov.va.viers.cdi.cdi.commonservice.v2.ObjectFactory();
 
-    @Autowired
-    private WebServiceTemplate webServiceTemplate;
+  @Autowired private WebServiceTemplate webServiceTemplate;
 
-    public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getMilitaryServiceEligibilityResponse (String value, String type) {
-        InputEdiPiOrIcn input = new InputEdiPiOrIcn();
-        InputEdipiIcn edi = new InputEdipiIcn();
-        edi.setEdipiORicnValue(value);
-        edi.setInputType(type);
-        input.setEdipiORicn(edi);
-        JAXBElement<InputEdiPiOrIcn> request = requestFactory.createEMISmilitaryServiceEligibilityRequest(input);
+  public JAXBElement<EMISmilitaryServiceEligibilityResponseType>
+      getMilitaryServiceEligibilityResponse(String value, String type, Boolean nullHeaders) {
+    InputEdiPiOrIcn input = new InputEdiPiOrIcn();
+    InputEdipiIcn edi = new InputEdipiIcn();
+    edi.setEdipiORicnValue(value);
+    edi.setInputType(type);
+    input.setEdipiORicn(edi);
+    JAXBElement<InputEdiPiOrIcn> request =
+        requestFactory.createEMISmilitaryServiceEligibilityRequest(input);
 
     JAXBElement<EMISmilitaryServiceEligibilityResponseType> response =
         (JAXBElement<EMISmilitaryServiceEligibilityResponseType>)
@@ -48,32 +48,34 @@ public class MilitaryInfoClient {
 
                   @Override
                   public void doWithMessage(WebServiceMessage message) {
-                    try {
-                      // get the header from the SOAP message
-                      SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
+                    if (!nullHeaders) {
+                      try {
+                        // get the header from the SOAP message
+                        SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
 
-                      // create the header element
+                        // create the header element
 
-                      InputHeaderInfo header = headerFactory.createInputHeaderInfo();
-                      header.setSourceSystemName("sourceSystem");
-                      header.setUserId("userId");
-                      header.setTransactionId("transactionId");
+                        InputHeaderInfo header = headerFactory.createInputHeaderInfo();
+                        header.setSourceSystemName("sourceSystem");
+                        header.setUserId("userId");
+                        header.setTransactionId("transactionId");
 
-                      JAXBElement<InputHeaderInfo> jaxbHeader =
-                          headerFactory.createInputHeaderInfo(header);
+                        JAXBElement<InputHeaderInfo> jaxbHeader =
+                            headerFactory.createInputHeaderInfo(header);
 
-                      // create a marshaller
-                      JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
-                      Marshaller marshaller = context.createMarshaller();
+                        // create a marshaller
+                        JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
+                        Marshaller marshaller = context.createMarshaller();
 
-                      // marshal the headers into the specified result
-                      marshaller.marshal(jaxbHeader, soapHeader.getResult());
-                    } catch (Exception e) {
-                      LOGGER.error("error during marshalling of the SOAP headers", e);
+                        // marshal the headers into the specified result
+                        marshaller.marshal(jaxbHeader, soapHeader.getResult());
+                      } catch (Exception e) {
+                        LOGGER.error("error during marshalling of the SOAP headers", e);
+                      }
                     }
                   }
                 });
 
-        return response;
-    }
+    return response;
+  }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+  <env:Header/>
+  <env:Body>
+    <eMISmilitaryServiceEligibilityResponse xmlns="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2" xmlns:ns2="http://viers.va.gov/cdi/eMIS/commonService/v2" xmlns:ns3="http://viers.va.gov/cdi/eMIS/RequestResponse/v2" xmlns:ns4="http://viers.va.gov/cdi/CDI/commonService/v2"></eMISmilitaryServiceEligibilityResponse>
+  </env:Body>
+</env:Envelope>

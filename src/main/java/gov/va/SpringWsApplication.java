@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis;
+package gov.va;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -15,29 +15,31 @@ import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 @PropertySource("classpath:client.properties")
 public class ClientConfig {
 
-    @Value("${client.default-uri}")  String defaultUri;
-    @Value("${client.context-path}") String contextPath;
+  @Value("${client.emis.default-uri}")
+  String defaultUri;
 
+  @Value("${client.emis.context-path}")
+  String contextPath;
 
-    @Bean
-    Jaxb2Marshaller jaxb2Marshaller() {
-        Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        jaxb2Marshaller.setContextPath(contextPath);
+  @Bean
+  Jaxb2Marshaller jaxb2Marshaller() {
+    Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
+    jaxb2Marshaller.setContextPath(contextPath);
 
-        return jaxb2Marshaller;
-    }
+    return jaxb2Marshaller;
+  }
 
-    @Bean
-    public WebServiceTemplate webServiceTemplate() throws SOAPException {
-        MessageFactory messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
-        SaajSoapMessageFactory saajSoapMessageFactory = new SaajSoapMessageFactory(messageFactory);
+  @Bean
+  public WebServiceTemplate webServiceTemplate() throws SOAPException {
+    MessageFactory messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
+    SaajSoapMessageFactory saajSoapMessageFactory = new SaajSoapMessageFactory(messageFactory);
 
-        WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
-        webServiceTemplate.setMarshaller(jaxb2Marshaller());
-        webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
-        webServiceTemplate.setDefaultUri(defaultUri);
-        webServiceTemplate.setMessageFactory(saajSoapMessageFactory);
+    WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
+    webServiceTemplate.setMarshaller(jaxb2Marshaller());
+    webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
+    webServiceTemplate.setDefaultUri(defaultUri);
+    webServiceTemplate.setMessageFactory(saajSoapMessageFactory);
 
-        return webServiceTemplate;
-    }
+    return webServiceTemplate;
+  }
 }
