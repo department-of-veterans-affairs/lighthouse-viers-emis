@@ -36,7 +36,7 @@ public class MilitaryInfoEndpoint {
       @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
           org.springframework.ws.soap.SoapHeader soapHeader) {
 
-    if (!request.getEdipiORicn().getInputType().equals("EDIPI")) {
+    if (!("EDIPI").equals(request.getEdipiORicn().getInputType())) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
               soapHeader,
