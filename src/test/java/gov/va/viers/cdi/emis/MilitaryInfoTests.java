@@ -72,11 +72,11 @@ public class MilitaryInfoTests {
         response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "ICN", true);
 
     assertThat(
-        Optional.ofNullable(response)
-            .map(r -> r.getValue())
-            .map(e -> e.getESSError())
-            .map(c -> c.getCode())
-            .orElse(null))
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
         .isEqualTo("MIS-ERR-03");
   }
 
@@ -86,11 +86,11 @@ public class MilitaryInfoTests {
         response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI", false);
 
     assertThat(
-        Optional.ofNullable(response)
-            .map(r -> r.getValue())
-            .map(e -> e.getESSError())
-            .map(c -> c.getCode())
-            .orElse(null))
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
         .isEqualTo("MIS-ERR-02");
   }
 
@@ -100,11 +100,11 @@ public class MilitaryInfoTests {
         response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI", true);
 
     assertThat(
-        Optional.ofNullable(response)
-            .map(r -> r.getValue())
-            .map(e -> e.getESSError())
-            .map(c -> c.getCode())
-            .orElse(null))
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
         .isEqualTo("MIS-ERR-02");
   }
 
@@ -129,12 +129,13 @@ public class MilitaryInfoTests {
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
         response = emisClient.getMilitaryServiceEligibilityResponse("1234567890", "EDIPI", false);
 
-    assertThat(Optional.ofNullable(response)
+    assertThat(
+        Optional.ofNullable(response)
             .map(r -> r.getValue())
             .map(v -> v.getMilitaryServiceEligibility())
             .orElse(null)
             .isEmpty());
-    }
+  }
 
   @Test
   public void getMilitaryServiceEligibilityBadFormatNullHeaders() {
@@ -143,11 +144,11 @@ public class MilitaryInfoTests {
         response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI", true);
 
     assertThat(
-        Optional.ofNullable(response)
-            .map(r -> r.getValue())
-            .map(e -> e.getESSError())
-            .map(c -> c.getCode())
-            .orElse(null))
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(e -> e.getESSError())
+                .map(c -> c.getCode())
+                .orElse(null))
         .isEqualTo("MIS-ERR-05");
   }
 
@@ -158,13 +159,13 @@ public class MilitaryInfoTests {
         response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "EDIPI", false);
 
     assertThat(
-        Optional.ofNullable(response)
-            .map(r -> r.getValue())
-            .map(v -> v.getMilitaryServiceEligibility())
-            .flatMap(m -> m.stream().findFirst())
-            .map(e -> e.getVeteranStatus())
-            .map(s -> s.getPersonFirstName())
-            .orElse(null))
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(v -> v.getMilitaryServiceEligibility())
+                .flatMap(m -> m.stream().findFirst())
+                .map(e -> e.getVeteranStatus())
+                .map(s -> s.getPersonFirstName())
+                .orElse(null))
         .isEqualTo("EMIS_FIRST_NM_74");
   }
 

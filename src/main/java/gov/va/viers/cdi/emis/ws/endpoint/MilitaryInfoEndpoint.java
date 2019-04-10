@@ -7,6 +7,7 @@ import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
 import gov.va.viers.cdi.emis.ws.builder.ESSErrorBuilder;
+import javax.xml.bind.JAXBElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
-
-import javax.xml.bind.JAXBElement;
 
 @Endpoint
 public class MilitaryInfoEndpoint {
@@ -28,8 +27,9 @@ public class MilitaryInfoEndpoint {
   @Autowired private DoDAdapterClient dodClient;
 
   @PayloadRoot(
-      namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
-      localPart = "eMISmilitaryServiceEligibilityRequest")
+    namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
+    localPart = "eMISmilitaryServiceEligibilityRequest"
+  )
   @ResponsePayload
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
       @RequestPayload InputEdiPiOrIcn request,
@@ -39,10 +39,7 @@ public class MilitaryInfoEndpoint {
     if (!("EDIPI").equals(request.getEdipiORicn().getInputType())) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
-              soapHeader,
-              "MIS-ERR-03",
-              "INVALID_IDENTIFIER",
-              "Invalid Parameter Identifier");
+              soapHeader, "MIS-ERR-03", "INVALID_IDENTIFIER", "Invalid Parameter Identifier");
       return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
     } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
       ESSErrorType essErrorType =
@@ -59,9 +56,9 @@ public class MilitaryInfoEndpoint {
                 request.getEdipiORicn().getEdipiORicnValue());
 
     if (dodResponse.getValue() == null) {
-      return objectFactory.createEMISmilitaryServiceEligibilityResponse(new EMISmilitaryServiceEligibilityResponseType());
-    }
-    else if (dodResponse.getValue().getESSError() != null) {
+      return objectFactory.createEMISmilitaryServiceEligibilityResponse(
+          new EMISmilitaryServiceEligibilityResponseType());
+    } else if (dodResponse.getValue().getESSError() != null) {
       if ("ERROR".equals(dodResponse.getValue().getESSError().getESSResponseCode())
           && "INVALID_EDIPI_INPUT".equals(dodResponse.getValue().getESSError().getText())) {
         ESSErrorType essErrorType =

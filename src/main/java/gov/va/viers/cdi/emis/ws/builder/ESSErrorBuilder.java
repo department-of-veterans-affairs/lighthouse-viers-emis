@@ -27,19 +27,17 @@ public class ESSErrorBuilder {
     XMLGregorianCalendar xmlGregorianCalendarCurrentTime = xmlGregorianCalendarCurrentTime();
 
     ESSErrorType essErrorType = new ESSErrorType();
-    if (soapHeader != null) {
-      Iterator<SoapHeaderElement> soapHeaderElementIterator = soapHeader.examineAllHeaderElements();
-      if (soapHeaderElementIterator.hasNext()) {
-        SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
-        if (soapHeaderElement.getResult() != null) {
-          InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
-          if (requestSoapHeaders != null) {
-            essErrorType.setUserId(requestSoapHeaders.getUserId());
-            if (requestSoapHeaders.getTransactionId() != null) {
-              essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
-            }
-            // TODO else generate transaction id and set it.
+    Iterator<SoapHeaderElement> soapHeaderElementIterator = soapHeader.examineAllHeaderElements();
+    if (soapHeaderElementIterator.hasNext()) {
+      SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
+      if (soapHeaderElement.getResult() != null) {
+        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
+        if (requestSoapHeaders != null) {
+          essErrorType.setUserId(requestSoapHeaders.getUserId());
+          if (requestSoapHeaders.getTransactionId() != null) {
+            essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
           }
+          // TODO else generate transaction id and set it.
         }
       }
     }
@@ -83,7 +81,6 @@ public class ESSErrorBuilder {
 
       // get header values
       requestSoapHeaders = headers.getValue();
-      requestSoapHeaders.setTransactionId(headers.getValue().getTransactionId().toString());
 
     } catch (JAXBException e) {
       LOGGER.error("error during unmarshalling of soap header: " + e);

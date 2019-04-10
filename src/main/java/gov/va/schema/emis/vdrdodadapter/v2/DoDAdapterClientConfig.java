@@ -19,7 +19,6 @@ import org.springframework.ws.soap.security.support.KeyStoreFactoryBean;
 import org.springframework.ws.soap.security.support.TrustManagersFactoryBean;
 import org.springframework.ws.transport.http.HttpsUrlConnectionMessageSender;
 
-
 @Configuration
 @PropertySource("classpath:client.properties")
 public class DoDAdapterClientConfig {
@@ -53,7 +52,7 @@ public class DoDAdapterClientConfig {
     try {
       messageFactory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);
     } catch (SOAPException e) {
-      LOGGER.error("Failed to set SOAP_1_2_PROTOCOL",e);
+      LOGGER.error("Failed to set SOAP_1_2_PROTOCOL", e);
     }
     SaajSoapMessageFactory saajSoapMessageFactory = new SaajSoapMessageFactory(messageFactory);
 
@@ -65,7 +64,7 @@ public class DoDAdapterClientConfig {
     try {
       webServiceTemplate.setMessageSender(httpsUrlConnectionMessageSender());
     } catch (Exception e) {
-      LOGGER.error("Failed to set message sender",e);
+      LOGGER.error("Failed to set message sender", e);
     }
 
     return webServiceTemplate;
@@ -79,15 +78,16 @@ public class DoDAdapterClientConfig {
     httpsUrlConnectionMessageSender.setKeyManagers(keyManagersFactoryBean().getObject());
     // allows the client to skip host name verification as otherwise following error is thrown:
     // java.security.cert.CertificateException: No name matching localhost found
-    httpsUrlConnectionMessageSender.setHostnameVerifier(new HostnameVerifier() {
-      @Override
-      public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession) {
-        if ("localhost".equals(hostname)) {
-          return true;
-        }
-        return false;
-      }
-    });
+    httpsUrlConnectionMessageSender.setHostnameVerifier(
+        new HostnameVerifier() {
+          @Override
+          public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession) {
+            if ("localhost".equals(hostname)) {
+              return true;
+            }
+            return false;
+          }
+        });
 
     return httpsUrlConnectionMessageSender;
   }
