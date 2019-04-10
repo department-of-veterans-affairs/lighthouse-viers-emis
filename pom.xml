@@ -14,7 +14,7 @@
   <properties>
     <java.version>1.8</java.version>
     <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
-    <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.5</maven-compiler-plugin.version>
     <fmt-maven-plugin.version>2.3.0</fmt-maven-plugin.version>
     <google-java-format.version>1.5</google-java-format.version>
     <git.allowedBranchNames><![CDATA[^(master|release/.*|PR-[0-9]+|.*/API-[0-9]+-.*)$]]></git.allowedBranchNames>
@@ -39,6 +39,10 @@
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct-jdk8</artifactId>
       <version>${mapstruct.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.ws/spring-ws-support -->
     <dependency>

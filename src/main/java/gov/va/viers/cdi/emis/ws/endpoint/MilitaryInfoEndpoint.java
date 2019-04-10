@@ -11,13 +11,7 @@ import javax.xml.bind.JAXBElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
-@Endpoint
 public class MilitaryInfoEndpoint {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoEndpoint.class);
@@ -26,14 +20,8 @@ public class MilitaryInfoEndpoint {
 
   @Autowired private DoDAdapterClient dodClient;
 
-  @PayloadRoot(
-      namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
-      localPart = "eMISmilitaryServiceEligibilityRequest")
-  @ResponsePayload
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
-      @RequestPayload InputEdiPiOrIcn request,
-      @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
-          org.springframework.ws.soap.SoapHeader soapHeader) {
+      InputEdiPiOrIcn request, org.springframework.ws.soap.SoapHeader soapHeader) {
 
     if (!("EDIPI").equals(request.getEdipiORicn().getInputType())) {
       ESSErrorType essErrorType =

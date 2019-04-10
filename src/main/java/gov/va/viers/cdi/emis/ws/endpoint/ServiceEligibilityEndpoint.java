@@ -6,6 +6,7 @@ import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
+import javax.xml.bind.JAXBElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
-
-import javax.xml.bind.JAXBElement;
 
 @Endpoint
 public class ServiceEligibilityEndpoint extends EmisEndpoint {
@@ -28,8 +27,9 @@ public class ServiceEligibilityEndpoint extends EmisEndpoint {
 
   @Override
   @PayloadRoot(
-      namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
-      localPart = "eMISmilitaryServiceEligibilityRequest")
+    namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
+    localPart = "eMISmilitaryServiceEligibilityRequest"
+  )
   @ResponsePayload
   public JAXBElement processRequest(
       @RequestPayload InputEdiPiOrIcn request,
@@ -47,24 +47,23 @@ public class ServiceEligibilityEndpoint extends EmisEndpoint {
   }
 
   @Override
-  ResponseTuple makeEmisPayload(String edipi) {
+  ResponseTuple sendRequest(String edipi) {
     JAXBElement<gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType>
         vadirResponse = dodClient.getMilitaryServiceEligibilityResponse(edipi);
 
-    /* Make this follow a real builder pattern? Lombok up in here*/
     ResponseTuple tuple = new ResponseTuple();
     /* The null check happens in here to avoid having to pass this back and forth for objectFactory purposes*/
     if (vadirResponse.getValue() == null) {
-      tuple.response =
+      tuple.setResponse(
           objectFactory.createEMISmilitaryServiceEligibilityResponse(
-              new EMISmilitaryServiceEligibilityResponseType());
+              new EMISmilitaryServiceEligibilityResponseType()));
     } else {
       EMISmilitaryServiceEligibilityResponseType mappedResponse =
           EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(
               vadirResponse.getValue());
-      tuple.response = objectFactory.createEMISmilitaryServiceEligibilityResponse(mappedResponse);
+      tuple.setResponse(objectFactory.createEMISmilitaryServiceEligibilityResponse(mappedResponse));
     }
-    tuple.error = vadirResponse.getValue().getESSError();
+    tuple.setError(vadirResponse.getValue().getESSError());
     return tuple;
   }
 }
