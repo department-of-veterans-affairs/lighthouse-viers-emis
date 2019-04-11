@@ -52,17 +52,10 @@ public class ServiceEligibilityEndpoint extends EmisEndpoint {
         vadirResponse = dodClient.getMilitaryServiceEligibilityResponse(edipi);
 
     ResponseTuple tuple = new ResponseTuple();
-    /* The null check happens in here to avoid having to pass this back and forth for objectFactory purposes*/
-    if (vadirResponse.getValue() == null) {
-      tuple.setResponse(
-          objectFactory.createEMISmilitaryServiceEligibilityResponse(
-              new EMISmilitaryServiceEligibilityResponseType()));
-    } else {
-      EMISmilitaryServiceEligibilityResponseType mappedResponse =
-          EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(
-              vadirResponse.getValue());
-      tuple.setResponse(objectFactory.createEMISmilitaryServiceEligibilityResponse(mappedResponse));
-    }
+
+    EMISmilitaryServiceEligibilityResponseType mappedResponse =
+        EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(vadirResponse.getValue());
+    tuple.setResponse(objectFactory.createEMISmilitaryServiceEligibilityResponse(mappedResponse));
     tuple.setError(vadirResponse.getValue().getESSError());
     return tuple;
   }

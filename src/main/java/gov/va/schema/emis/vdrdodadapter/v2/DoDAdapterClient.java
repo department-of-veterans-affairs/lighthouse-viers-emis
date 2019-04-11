@@ -28,6 +28,10 @@ public class DoDAdapterClient {
         (JAXBElement<EMISmilitaryServiceEligibilityResponseType>)
             DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
 
+    if (response.getValue() == null) {
+      response.setValue(new EMISmilitaryServiceEligibilityResponseType());
+    }
+
     return response;
   }
 }
