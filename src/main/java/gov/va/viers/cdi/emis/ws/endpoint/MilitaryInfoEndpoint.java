@@ -11,13 +11,7 @@ import javax.xml.bind.JAXBElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ws.server.endpoint.annotation.Endpoint;
-import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
-@Endpoint
 public class MilitaryInfoEndpoint {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoEndpoint.class);
@@ -26,26 +20,19 @@ public class MilitaryInfoEndpoint {
 
   @Autowired private DoDAdapterClient dodClient;
 
-  @PayloadRoot(
-    namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
-    localPart = "eMISmilitaryServiceEligibilityRequest"
-  )
-  @ResponsePayload
   public JAXBElement<EMISmilitaryServiceEligibilityResponseType> getServiceEligibility(
-      @RequestPayload InputEdiPiOrIcn request,
-      @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
-          org.springframework.ws.soap.SoapHeader soapHeader) {
+      InputEdiPiOrIcn request, org.springframework.ws.soap.SoapHeader soapHeader) {
 
     if (!("EDIPI").equals(request.getEdipiORicn().getInputType())) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
               soapHeader, "MIS-ERR-03", "INVALID_IDENTIFIER", "Invalid Parameter Identifier");
-      return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
+      return makeEmisEssError(essErrorType);
     } else if (request.getEdipiORicn().getEdipiORicnValue().isEmpty()) {
       ESSErrorType essErrorType =
           ESSErrorBuilder.buildEssError(
               soapHeader, "MIS-ERR-02", "MISSING_EDIPI", "Invalid Parameter Identifier");
-      return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
+      return makeEmisEssError(essErrorType);
     }
 
     /* This should probably be wrapped in some null checks, not sure what EMIS does in those cases
@@ -64,7 +51,7 @@ public class MilitaryInfoEndpoint {
         ESSErrorType essErrorType =
             ESSErrorBuilder.buildEssError(
                 soapHeader, "MIS-ERR-05", "EDIPI_BAD_FORMAT", "EDIPI incorrectly formatted");
-        return getEmisMilitaryServiceEligibilityResponseTypeEssError(essErrorType);
+        return makeEmisEssError(essErrorType);
       }
     }
 
@@ -74,8 +61,8 @@ public class MilitaryInfoEndpoint {
     return objectFactory.createEMISmilitaryServiceEligibilityResponse(noJaxbResponse);
   }
 
-  private JAXBElement<EMISmilitaryServiceEligibilityResponseType>
-      getEmisMilitaryServiceEligibilityResponseTypeEssError(ESSErrorType essErrorType) {
+  private JAXBElement<EMISmilitaryServiceEligibilityResponseType> makeEmisEssError(
+      ESSErrorType essErrorType) {
     EMISmilitaryServiceEligibilityResponseType emiSmilitaryServiceEligibilityResponseType =
         new EMISmilitaryServiceEligibilityResponseType();
     emiSmilitaryServiceEligibilityResponseType.setESSError(essErrorType);
