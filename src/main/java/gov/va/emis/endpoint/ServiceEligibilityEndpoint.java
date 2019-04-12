@@ -1,7 +1,7 @@
-package gov.va.viers.cdi.emis.ws.endpoint;
+package gov.va.emis.endpoint;
 
-import gov.va.EMISMapper;
-import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
+import gov.va.dod.DoDAdapterClient;
+import gov.va.emis.mappers.ServiceEligibilityMapper;
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
@@ -54,7 +54,8 @@ public class ServiceEligibilityEndpoint extends EmisEndpoint {
     ResponseTuple tuple = new ResponseTuple();
 
     EMISmilitaryServiceEligibilityResponseType mappedResponse =
-        EMISMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(vadirResponse.getValue());
+        ServiceEligibilityMapper.INSTANCE.mapEMISmilitaryServiceEligibilityResponseType(
+            vadirResponse.getValue());
     tuple.setResponse(objectFactory.createEMISmilitaryServiceEligibilityResponse(mappedResponse));
     tuple.setError(vadirResponse.getValue().getESSError());
     return tuple;

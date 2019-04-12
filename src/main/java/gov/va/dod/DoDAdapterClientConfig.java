@@ -1,4 +1,4 @@
-package gov.va.schema.emis.vdrdodadapter.v2;
+package gov.va.dod;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.xml.soap.MessageFactory;

@@ -1,4 +1,4 @@
-package gov.va;
+package gov.va.emis.mappers;
 
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.commonservice.v2.AwardsData;
@@ -20,9 +20,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper()
-public interface EMISMapper {
+public interface ServiceEligibilityMapper {
 
-  EMISMapper INSTANCE = Mappers.getMapper(EMISMapper.class);
+  ServiceEligibilityMapper INSTANCE = Mappers.getMapper(ServiceEligibilityMapper.class);
 
   // Sub types of EMISmilitaryServiceEligibilityResponseType include:
   // List<MilitaryServiceEligibility>, ESSErrorType
