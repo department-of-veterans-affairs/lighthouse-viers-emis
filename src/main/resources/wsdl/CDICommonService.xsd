@@ -97,7 +97,7 @@
 		<xs:sequence>
 			<xs:element name="userId" type="xs:string"/>
 			<xs:element name="sourceSystemName" type="xs:string"/>
-			<xs:element name="transactionId" type="xs:string"/>
+			<xs:element name="transactionId"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
