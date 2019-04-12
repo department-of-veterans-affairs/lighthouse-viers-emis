@@ -154,15 +154,14 @@ public class MilitaryInfoTests {
 
   @Test
   public void getMilitaryServiceEligibilityTransactionId() {
-    initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI", true);
+        response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI", false);
 
     assertThat(
             Optional.ofNullable(response)
                 .map(r -> r.getValue())
-                .map(v -> v.getESSError())
-                .map(x -> x.getEssTransactionID())
+                .map(e -> e.getESSError())
+                .map(c -> c.getEssTransactionID())
                 .orElse(null))
         .isNotEqualTo(null);
   }
