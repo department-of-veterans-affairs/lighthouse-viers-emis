@@ -153,6 +153,21 @@ public class MilitaryInfoTests {
   }
 
   @Test
+  public void getMilitaryServiceEligibilityTransactionId() {
+    initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
+    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
+        response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI", true);
+
+    assertThat(
+            Optional.ofNullable(response)
+                .map(r -> r.getValue())
+                .map(v -> v.getESSError())
+                .map(x -> x.getEssTransactionID())
+                .orElse(null))
+        .isNotEqualTo(null);
+  }
+
+  @Test
   public void getMilitaryServiceEligibilitySuccess() {
     initMock("exampleSuccessVadirResponse_MilInfoEligSvc.xml", "6001010072");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
