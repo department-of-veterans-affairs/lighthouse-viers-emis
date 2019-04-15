@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis;
+package gov.va.viers.cdi.emis.serviceEligibility;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

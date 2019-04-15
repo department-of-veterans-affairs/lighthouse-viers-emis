@@ -27,17 +27,20 @@ public class ESSErrorBuilder {
     XMLGregorianCalendar xmlGregorianCalendarCurrentTime = xmlGregorianCalendarCurrentTime();
 
     ESSErrorType essErrorType = new ESSErrorType();
-    Iterator<SoapHeaderElement> soapHeaderElementIterator = soapHeader.examineAllHeaderElements();
-    if (soapHeaderElementIterator.hasNext()) {
-      SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
-      if (soapHeaderElement.getResult() != null) {
-        InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
-        if (requestSoapHeaders != null) {
-          essErrorType.setUserId(requestSoapHeaders.getUserId());
-          if (requestSoapHeaders.getTransactionId() != null) {
-            essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId().toString());
+    if (soapHeader != null) {
+      /*I'd rather do this by having a default new SoapHeader made*/
+      Iterator<SoapHeaderElement> soapHeaderElementIterator = soapHeader.examineAllHeaderElements();
+      if (soapHeaderElementIterator.hasNext()) {
+        SoapHeaderElement soapHeaderElement = soapHeaderElementIterator.next();
+        if (soapHeaderElement.getResult() != null) {
+          InputHeaderInfo requestSoapHeaders = getInputHeaderInfo(soapHeaderElement);
+          if (requestSoapHeaders != null) {
+            essErrorType.setUserId(requestSoapHeaders.getUserId());
+            if (requestSoapHeaders.getTransactionId() != null) {
+              essErrorType.setEssTransactionID(requestSoapHeaders.getTransactionId());
+            }
+            // TODO else generate transaction id and set it.
           }
-          // TODO else generate transaction id and set it.
         }
       }
     }

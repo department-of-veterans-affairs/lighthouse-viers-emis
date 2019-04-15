@@ -8,9 +8,6 @@ import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
-
-import org.opensaml.xmlsec.signature.Q;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +16,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.SoapHeader;
-import org.springframework.ws.soap.SoapHeaderElement;
 import org.springframework.ws.soap.SoapMessage;
-import org.springframework.xml.namespace.QNameEditor;
 
 @Component
 public class MilitaryInfoClient {
@@ -58,34 +53,20 @@ public class MilitaryInfoClient {
                         // get the header from the SOAP message
                         SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
 
-                        // create the header element
+                        InputHeaderInfo header = headerFactory.createInputHeaderInfo();
+                        header.setSourceSystemName("sourceSystemTest");
+                        header.setUserId("userIdTest");
+                        header.setTransactionId("transactionIdTest");
 
-                        final String commonV2 = "http://viers.va.gov/cdi/CDI/commonService/v2";
-                        QName qNameInputHeader = new QName(commonV2,"inputHeaderInfo");
-                        SoapHeaderElement soapHeaderInput = soapHeader.addHeaderElement(qNameInputHeader);
+                        JAXBElement<InputHeaderInfo> jaxbHeader =
+                            headerFactory.createInputHeaderInfo(header);
 
-                        QName qNameDummy = new QName("string");
-                        QName qNameUserId = new QName(commonV2, "userId");
-                        QName qNameSourceSystemName = new QName(commonV2, "sourceSystemName");
-                        QName qNameTransactionId = new QName(commonV2, "transactionId");
-                        soapHeaderInput.addAttribute(qNameUserId, "userIdValue");
-                        soapHeaderInput.addAttribute(qNameSourceSystemName, "sourceSystemValue");
-                        soapHeaderInput.addAttribute(qNameTransactionId, "transactionIdValue");
+                        // create a marshaller
+                        JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
+                        Marshaller marshaller = context.createMarshaller();
 
-//                        InputHeaderInfo header = headerFactory.createInputHeaderInfo();
-//                        header.setSourceSystemName("sourceSystem");
-//                        header.setUserId("userId");
-//                        header.setTransactionId("transactionId");
-//
-//                        JAXBElement<InputHeaderInfo> jaxbHeader =
-//                            headerFactory.createInputHeaderInfo(header);
-//
-//                        // create a marshaller
-//                        JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
-//                        Marshaller marshaller = context.createMarshaller();
-//
-//                        // marshal the headers into the specified result
-//                        marshaller.marshal(jaxbHeader, soapHeader.getResult());
+                        // marshal the headers into the specified result
+                        marshaller.marshal(jaxbHeader, soapHeader.getResult());
                       } catch (Exception e) {
                         LOGGER.error("error during marshalling of the SOAP headers", e);
                       }
