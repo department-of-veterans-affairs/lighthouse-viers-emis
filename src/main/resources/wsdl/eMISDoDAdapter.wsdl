@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2014 rel. 2 (x64) (http://www.altova.com) by Department of Veterans Affairs (Department of Veterans Affairs) --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:eMISDoDAdapters" xmlns:emisdod="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:eMISDoDAdapters" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2014 rel. 2 (x64) (http://www.altova.com) by Department of Veterans Affairs (Department of Veterans Affairs) -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:eMISDoDAdapters"
+             xmlns:emisdod="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:tns="urn:eMISDoDAdapters">
   <documentation>
     <appinfo source="WMQI_APPINFO">
       <MRWSDLAppInfo imported="true">

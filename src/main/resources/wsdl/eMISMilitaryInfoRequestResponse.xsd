@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2014 rel. 2 (x64) (http://www.altova.com) by Department of Veterans Affairs (Department of Veterans Affairs) -->
-<xs:schema xmlns:mirr="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:emisrr="http://viers.va.gov/cdi/eMIS/RequestResponse/v2" targetNamespace="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:emisrr="http://viers.va.gov/cdi/eMIS/RequestResponse/v2"
+           targetNamespace="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
 	<xs:import namespace="http://viers.va.gov/cdi/eMIS/RequestResponse/v2" schemaLocation="eMISRequestResponse.xsd"/>
 	<!--Deployments - RRC 637128-->
 	<xs:element name="eMISdeploymentRequest" type="emisrr:inputEdiPiOrIcn"/>

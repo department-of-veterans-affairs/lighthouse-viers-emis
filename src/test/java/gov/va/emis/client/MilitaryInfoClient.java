@@ -53,12 +53,10 @@ public class MilitaryInfoClient {
                         // get the header from the SOAP message
                         SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
 
-                        // create the header element
-
                         InputHeaderInfo header = headerFactory.createInputHeaderInfo();
-                        header.setSourceSystemName("sourceSystem");
-                        header.setUserId("userId");
-                        header.setTransactionId("transactionId");
+                        header.setSourceSystemName("sourceSystemTest");
+                        header.setUserId("userIdTest");
+                        header.setTransactionId("transactionIdTest");
 
                         JAXBElement<InputHeaderInfo> jaxbHeader =
                             headerFactory.createInputHeaderInfo(header);

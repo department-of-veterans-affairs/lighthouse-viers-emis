@@ -1,4 +1,4 @@
-package gov.va.emis.endpoint;
+package gov.va.viers.cdi.emis.serviceEligibility;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,9 +25,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class MilitaryInfoTests {
+public class ServiceEligibilityTests {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MilitaryInfoTests.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEligibilityTests.class);
 
   @Autowired private MilitaryInfoClient emisClient;
 
@@ -53,77 +53,6 @@ public class MilitaryInfoTests {
   }
 
   @Test
-  public void getMilitaryServiceEligibilityInvalidIdentifier() {
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "ICN", false);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-03");
-  }
-
-  @Test
-  public void getMilitaryServiceEligibilityInvalidIdentifierNullHeaders() {
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("6001010072", "ICN", true);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-03");
-  }
-
-  @Test
-  public void getMilitaryServiceEligibilityMissingEdipi() {
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI", false);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-02");
-  }
-
-  @Test
-  public void getMilitaryServiceEligibilityMissingEdipiNullHeaders() {
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("", "EDIPI", true);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-02");
-  }
-
-  @Test
-  public void getMilitaryServiceEligibilityBadFormat() {
-    initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI", false);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-05");
-  }
-
-  @Test
   public void getMilitaryServiceEligibilityEmptyResponse() {
     initMock("emptyVadirResponse_MilInfoEligSvc.xml", "1234567890");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
@@ -135,21 +64,6 @@ public class MilitaryInfoTests {
             .map(v -> v.getMilitaryServiceEligibility())
             .orElse(null)
             .isEmpty());
-  }
-
-  @Test
-  public void getMilitaryServiceEligibilityBadFormatNullHeaders() {
-    initMock("exampleBadFormatVadirResponse_MilInfoEligSvc.xml", "BADEDIPI01");
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType>
-        response = emisClient.getMilitaryServiceEligibilityResponse("BADEDIPI01", "EDIPI", true);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(e -> e.getESSError())
-                .map(c -> c.getCode())
-                .orElse(null))
-        .isEqualTo("MIS-ERR-05");
   }
 
   @Test
