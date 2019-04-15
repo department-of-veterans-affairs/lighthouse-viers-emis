@@ -82,21 +82,4 @@ public class UnitInformationTests {
                 .orElse(null))
         .isEqualTo("WY2AA0");
   }
-
-  @Test
-  public void getUnitInformationSuccessNullHeaders() {
-    initMock("exampleSuccessVadirResponse_UnitInfoSvc.xml", "6001010072");
-    JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISunitInformationResponseType> response =
-        emisClient.getUnitInformationResponse("6001010072", "EDIPI", true);
-
-    assertThat(
-            Optional.ofNullable(response)
-                .map(r -> r.getValue())
-                .map(v -> v.getUnitInformation())
-                .flatMap(m -> m.stream().findFirst())
-                .map(e -> e.getUnitInformation())
-                .map(s -> s.getUnitIdentificationCode())
-                .orElse(null))
-        .isEqualTo("WY2AA0");
-  }
 }

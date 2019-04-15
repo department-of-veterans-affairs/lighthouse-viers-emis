@@ -89,37 +89,7 @@ public class MilitaryInfoClient {
 
     JAXBElement<EMISunitInformationResponseType> response =
         (JAXBElement<EMISunitInformationResponseType>)
-            webServiceTemplate.marshalSendAndReceive(
-                request,
-                new WebServiceMessageCallback() {
-
-                  @Override
-                  public void doWithMessage(WebServiceMessage message) {
-                    if (!nullHeaders) {
-                      try {
-                        // get the header from the SOAP message
-                        SoapHeader soapHeader = ((SoapMessage) message).getSoapHeader();
-
-                        InputHeaderInfo header = headerFactory.createInputHeaderInfo();
-                        header.setSourceSystemName("sourceSystemTest");
-                        header.setUserId("userIdTest");
-                        header.setTransactionId("transactionIdTest");
-
-                        JAXBElement<InputHeaderInfo> jaxbHeader =
-                            headerFactory.createInputHeaderInfo(header);
-
-                        // create a marshaller
-                        JAXBContext context = JAXBContext.newInstance(InputHeaderInfo.class);
-                        Marshaller marshaller = context.createMarshaller();
-
-                        // marshal the headers into the specified result
-                        marshaller.marshal(jaxbHeader, soapHeader.getResult());
-                      } catch (Exception e) {
-                        LOGGER.error("error during marshalling of the SOAP headers", e);
-                      }
-                    }
-                  }
-                });
+            webServiceTemplate.marshalSendAndReceive(request);
 
     return response;
   }
