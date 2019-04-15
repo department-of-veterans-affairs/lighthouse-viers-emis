@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eMISmilitaryServiceEligibilityResponse xmlns="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2" xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+<eMISmilitaryServiceEligibilityResponse xmlns="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2">
   <ESSError>
     <essTransactionID>dd460390-ba85-11e8-a112-40db20524153</essTransactionID>
     <ESSResponseCode>ERROR</ESSResponseCode>

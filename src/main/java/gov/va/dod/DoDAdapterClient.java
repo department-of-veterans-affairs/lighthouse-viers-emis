@@ -1,5 +1,8 @@
-package gov.va.schema.emis.vdrdodadapter.v2;
+package gov.va.dod;
 
+import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.InputEdiPi;
+import gov.va.schema.emis.vdrdodadapter.v2.ObjectFactory;
 import javax.xml.bind.JAXBElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

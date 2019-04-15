@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis.client;
+package gov.va.emis.client;
 
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
 import gov.va.viers.cdi.emis.commonservice.v2.InputEdipiIcn;

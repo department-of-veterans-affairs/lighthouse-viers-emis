@@ -2,10 +2,10 @@ package gov.va.viers.cdi.emis;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
+import gov.va.dod.DoDAdapterClient;
+import gov.va.emis.client.MilitaryInfoClient;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.ObjectFactory;
-import gov.va.viers.cdi.emis.client.MilitaryInfoClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
