@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis.ws.builder;
+package gov.va.emis.builder;
 
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;

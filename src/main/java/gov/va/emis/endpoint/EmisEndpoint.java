@@ -1,8 +1,8 @@
-package gov.va.viers.cdi.emis.ws.endpoint;
+package gov.va.emis.endpoint;
 
+import gov.va.emis.builder.ESSErrorBuilder;
 import gov.va.viers.cdi.cdi.commonservice.v2.ESSErrorType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
-import gov.va.viers.cdi.emis.ws.builder.ESSErrorBuilder;
 import javax.xml.bind.JAXBElement;
 import org.springframework.ws.soap.SoapHeader;
 

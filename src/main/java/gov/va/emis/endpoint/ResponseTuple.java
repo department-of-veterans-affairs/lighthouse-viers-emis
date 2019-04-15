@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis.ws.endpoint;
+package gov.va.emis.endpoint;
 
 import gov.va.schema.emis.vdrdodadapter.v2.ESSErrorType;
 import javax.xml.bind.JAXBElement;

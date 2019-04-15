@@ -1,6 +1,6 @@
-package gov.va.viers.cdi.emis.client;
+package gov.va.emis.client;
 
-import gov.va.schema.emis.vdrdodadapter.v2.DoDAdapterClient;
+import gov.va.dod.DoDAdapterClient;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
