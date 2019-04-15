@@ -1,4 +1,4 @@
-package gov.va.emis.transformerTests;
+package gov.va.emis.transformer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
-public class UnitInformationTransformersTest {
+public class UnitInformationTransformerTest {
 
   private static final Logger LOGGER =
-      LoggerFactory.getLogger(UnitInformationTransformersTest.class);
+      LoggerFactory.getLogger(UnitInformationTransformerTest.class);
   EMISunitInformationResponseType emisResponse;
   gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType dodResponse;
 

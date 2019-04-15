@@ -1,4 +1,4 @@
-package gov.va.emis.endpointTests;
+package gov.va.emis.endpoint;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
