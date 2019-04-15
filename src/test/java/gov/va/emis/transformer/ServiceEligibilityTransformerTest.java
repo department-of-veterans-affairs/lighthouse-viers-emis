@@ -1,4 +1,4 @@
-package gov.va.viers.cdi.emis.serviceEligibility;
+package gov.va.emis.transformer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
-public class ServiceEligibilityTransformersTest {
+public class ServiceEligibilityTransformerTest {
 
   private static final Logger LOGGER =
-      LoggerFactory.getLogger(ServiceEligibilityTransformersTest.class);
+      LoggerFactory.getLogger(ServiceEligibilityTransformerTest.class);
   EMISmilitaryServiceEligibilityResponseType emisResponse;
   gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType dodResponse;
 
