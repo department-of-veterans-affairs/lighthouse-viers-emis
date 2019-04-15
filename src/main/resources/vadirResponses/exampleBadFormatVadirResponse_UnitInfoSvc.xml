@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eMISunitInformationResponse xmlns="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2">
+  <ESSError>
+    <essTransactionID>dd460390-ba85-11e8-a112-40db20524153</essTransactionID>
+    <ESSResponseCode>ERROR</ESSResponseCode>
+    <text>INVALID_EDIPI_INPUT</text>
+    <essCode>gov.va.ess.fault.GeneralFault</essCode>
+    <essText>INVALID_EDIPI_INPUT</essText>
+    <severity>Error</severity>
+    <serviceName>DODAdapterService_v2</serviceName>
+    <codePackage>gov.va.vba.vadir.vdrEMISDoDAdaptor.service</codePackage>
+    <serviceDomain>VADIR Military Information</serviceDomain>
+    <businessDomain>Unit Information</businessDomain>
+  </ESSError>
+</eMISunitInformationResponse>
