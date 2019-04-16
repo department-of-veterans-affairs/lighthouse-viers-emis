@@ -1,6 +1,7 @@
 package gov.va.dod;
 
 import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISretirementResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.InputEdiPi;
 import gov.va.schema.emis.vdrdodadapter.v2.ObjectFactory;
@@ -50,6 +51,22 @@ public class DoDAdapterClient {
 
     if (response.getValue() == null) {
       response.setValue(new EMISunitInformationResponseType());
+    }
+
+    return response;
+  }
+
+  public JAXBElement<EMISretirementResponseType> getRetirementResponse(String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISretirementRequest(edipi);
+
+    JAXBElement<EMISretirementResponseType> response =
+        (JAXBElement<EMISretirementResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISretirementResponseType());
     }
 
     return response;
