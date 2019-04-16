@@ -1,5 +1,6 @@
 package gov.va.dod;
 
+import gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.InputEdiPi;
@@ -52,6 +53,22 @@ public class DoDAdapterClient {
       response.setValue(new EMISunitInformationResponseType());
     }
 
+    return response;
+  }
+
+  public JAXBElement<EMISguardReserveServicePeriodsResponseType>
+      getGuardReserveServicePeriodsResponse(String value) {
+    InputEdiPi ediPi = new InputEdiPi();
+    ediPi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISguardReserveServicePeriodsRequest(ediPi);
+
+    JAXBElement<EMISguardReserveServicePeriodsResponseType> response =
+        (JAXBElement<EMISguardReserveServicePeriodsResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISguardReserveServicePeriodsResponseType());
+    }
     return response;
   }
 }
