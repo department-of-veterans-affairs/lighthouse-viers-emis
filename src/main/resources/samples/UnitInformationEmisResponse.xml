@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NS4:eMISunitInformationResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
+  <NS5:unitInformation xmlns:NS5="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS6:edipi xmlns:NS6="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS6:edipi>
+    <NS7:keyData xmlns:NS7="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS7:personnelOrganizationCode>51</NS7:personnelOrganizationCode>
+      <NS7:personnelCategoryTypeCode>N</NS7:personnelCategoryTypeCode>
+      <NS7:personnelSegmentIdentifier>2</NS7:personnelSegmentIdentifier>
+    </NS7:keyData>
+    <NS8:unitInformation xmlns:NS8="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS8:unitSegmentIdentifier>1</NS8:unitSegmentIdentifier>
+      <NS8:unitIdentificationCode>WY2AA0</NS8:unitIdentificationCode>
+      <NS8:unitUicTypeCode>T</NS8:unitUicTypeCode>
+      <NS8:unitAssignedDate>2015-08-31</NS8:unitAssignedDate>
+    </NS8:unitInformation>
+  </NS5:unitInformation>
+  <NS9:unitInformation xmlns:NS9="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS10:edipi xmlns:NS10="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS10:edipi>
+    <NS11:keyData xmlns:NS11="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS11:personnelOrganizationCode>51</NS11:personnelOrganizationCode>
+      <NS11:personnelCategoryTypeCode>N</NS11:personnelCategoryTypeCode>
+      <NS11:personnelSegmentIdentifier>2</NS11:personnelSegmentIdentifier>
+    </NS11:keyData>
+    <NS12:unitInformation xmlns:NS12="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS12:unitSegmentIdentifier>1</NS12:unitSegmentIdentifier>
+      <NS12:unitIdentificationCode>WY2AA0</NS12:unitIdentificationCode>
+      <NS12:unitUicTypeCode>S</NS12:unitUicTypeCode>
+      <NS12:unitAssignedDate>2015-08-31</NS12:unitAssignedDate>
+    </NS12:unitInformation>
+  </NS9:unitInformation>
+  <NS13:unitInformation xmlns:NS13="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS14:edipi xmlns:NS14="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS14:edipi>
+    <NS15:keyData xmlns:NS15="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS15:personnelOrganizationCode>11</NS15:personnelOrganizationCode>
+      <NS15:personnelCategoryTypeCode>A</NS15:personnelCategoryTypeCode>
+      <NS15:personnelSegmentIdentifier>1</NS15:personnelSegmentIdentifier>
+    </NS15:keyData>
+    <NS16:unitInformation xmlns:NS16="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS16:unitSegmentIdentifier>17</NS16:unitSegmentIdentifier>
+      <NS16:unitIdentificationCode>WE3CAAFC</NS16:unitIdentificationCode>
+      <NS16:unitUicTypeCode>T</NS16:unitUicTypeCode>
+      <NS16:unitAssignedDate>2014-04-16</NS16:unitAssignedDate>
+    </NS16:unitInformation>
+  </NS13:unitInformation>
+  <NS17:unitInformation xmlns:NS17="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS18:edipi xmlns:NS18="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS18:edipi>
+    <NS19:keyData xmlns:NS19="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS19:personnelOrganizationCode>11</NS19:personnelOrganizationCode>
+      <NS19:personnelCategoryTypeCode>A</NS19:personnelCategoryTypeCode>
+      <NS19:personnelSegmentIdentifier>1</NS19:personnelSegmentIdentifier>
+    </NS19:keyData>
+    <NS20:unitInformation xmlns:NS20="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS20:unitSegmentIdentifier>17</NS20:unitSegmentIdentifier>
+      <NS20:unitIdentificationCode>WE3CAAFC</NS20:unitIdentificationCode>
+      <NS20:unitUicTypeCode>S</NS20:unitUicTypeCode>
+      <NS20:unitAssignedDate>2014-04-16</NS20:unitAssignedDate>
+    </NS20:unitInformation>
+  </NS17:unitInformation>
+  <NS21:unitInformation xmlns:NS21="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS22:edipi xmlns:NS22="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS22:edipi>
+    <NS23:keyData xmlns:NS23="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS23:personnelOrganizationCode>11</NS23:personnelOrganizationCode>
+      <NS23:personnelCategoryTypeCode>A</NS23:personnelCategoryTypeCode>
+      <NS23:personnelSegmentIdentifier>1</NS23:personnelSegmentIdentifier>
+    </NS23:keyData>
+    <NS24:unitInformation xmlns:NS24="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS24:unitSegmentIdentifier>16</NS24:unitSegmentIdentifier>
+      <NS24:unitIdentificationCode>W0U332BA</NS24:unitIdentificationCode>
+      <NS24:unitUicTypeCode>T</NS24:unitUicTypeCode>
+      <NS24:unitAssignedDate>2014-04-13</NS24:unitAssignedDate>
+    </NS24:unitInformation>
+  </NS21:unitInformation>
+  <NS25:unitInformation xmlns:NS25="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS26:edipi xmlns:NS26="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS26:edipi>
+    <NS27:keyData xmlns:NS27="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS27:personnelOrganizationCode>11</NS27:personnelOrganizationCode>
+      <NS27:personnelCategoryTypeCode>A</NS27:personnelCategoryTypeCode>
+      <NS27:personnelSegmentIdentifier>1</NS27:personnelSegmentIdentifier>
+    </NS27:keyData>
+    <NS28:unitInformation xmlns:NS28="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS28:unitSegmentIdentifier>16</NS28:unitSegmentIdentifier>
+      <NS28:unitIdentificationCode>W0U332BA</NS28:unitIdentificationCode>
+      <NS28:unitUicTypeCode>S</NS28:unitUicTypeCode>
+      <NS28:unitAssignedDate>2014-04-13</NS28:unitAssignedDate>
+    </NS28:unitInformation>
+  </NS25:unitInformation>
+  <NS29:unitInformation xmlns:NS29="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS30:edipi xmlns:NS30="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS30:edipi>
+    <NS31:keyData xmlns:NS31="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS31:personnelOrganizationCode>11</NS31:personnelOrganizationCode>
+      <NS31:personnelCategoryTypeCode>A</NS31:personnelCategoryTypeCode>
+      <NS31:personnelSegmentIdentifier>1</NS31:personnelSegmentIdentifier>
+    </NS31:keyData>
+    <NS32:unitInformation xmlns:NS32="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS32:unitSegmentIdentifier>15</NS32:unitSegmentIdentifier>
+      <NS32:unitIdentificationCode>WE35BDE1</NS32:unitIdentificationCode>
+      <NS32:unitUicTypeCode>T</NS32:unitUicTypeCode>
+      <NS32:unitAssignedDate>2013-04-03</NS32:unitAssignedDate>
+    </NS32:unitInformation>
+  </NS29:unitInformation>
+  <NS33:unitInformation xmlns:NS33="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS34:edipi xmlns:NS34="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010072</NS34:edipi>
+    <NS35:keyData xmlns:NS35="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS35:personnelOrganizationCode>11</NS35:personnelOrganizationCode>
+      <NS35:personnelCategoryTypeCode>A</NS35:personnelCategoryTypeCode>
+      <NS35:personnelSegmentIdentifier>1</NS35:personnelSegmentIdentifier>
+    </NS35:keyData>
+    <NS36:unitInformation xmlns:NS36="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS36:unitSegmentIdentifier>15</NS36:unitSegmentIdentifier>
+      <NS36:unitIdentificationCode>WE35BDE1</NS36:unitIdentificationCode>
+      <NS36:unitUicTypeCode>S</NS36:unitUicTypeCode>
+      <NS36:unitAssignedDate>2013-04-03</NS36:unitAssignedDate>
+    </NS36:unitInformation>
+  </NS33:unitInformation>
+</NS4:eMISunitInformationResponse>

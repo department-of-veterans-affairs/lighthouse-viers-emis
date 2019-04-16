@@ -1,8 +1,7 @@
-package gov.va.viers.cdi.emis.ws.endpoint;
+package gov.va.emis.endpoint;
 
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import javax.servlet.Servlet;
-
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
