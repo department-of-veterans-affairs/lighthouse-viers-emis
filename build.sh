@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-docker build -t viers-emis-base:latest .
+docker build -t vasdvp/viers-emis:latest .
+docker push vasdvp/viers-emis:latest
