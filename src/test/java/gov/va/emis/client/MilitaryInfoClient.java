@@ -4,6 +4,7 @@ import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
 import gov.va.viers.cdi.emis.commonservice.v2.InputEdipiIcn;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
+import gov.va.viers.cdi.emis.requestresponse.v2.EMISretirementResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISunitInformationResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
 import javax.xml.bind.JAXBContext;
@@ -90,6 +91,21 @@ public class MilitaryInfoClient {
     JAXBElement<EMISunitInformationResponseType> response =
         (JAXBElement<EMISunitInformationResponseType>)
             webServiceTemplate.marshalSendAndReceive(request);
+
+    return response;
+  }
+
+  public JAXBElement<EMISretirementResponseType> getRetirementResponse(
+      String value, String type, Boolean nullHeaders) {
+    InputEdiPiOrIcn input = new InputEdiPiOrIcn();
+    InputEdipiIcn edi = new InputEdipiIcn();
+    edi.setEdipiORicnValue(value);
+    edi.setInputType(type);
+    input.setEdipiORicn(edi);
+    JAXBElement<InputEdiPiOrIcn> request = requestFactory.createEMISretirementRequest(input);
+
+    JAXBElement<EMISretirementResponseType> response =
+        (JAXBElement<EMISretirementResponseType>) webServiceTemplate.marshalSendAndReceive(request);
 
     return response;
   }

@@ -15,7 +15,7 @@ public interface UnitInformationMapper {
 
   EMISunitInformationResponseType mapEMISunitInformationResponseType(
       gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType
-          emiSunitInformationResponseTypeResponseType);
+          emiSunitInformationResponseType);
 
   List<UnitInformation> mapUnitInformationList(
       List<gov.va.schema.emis.vdrdodadapter.v2.UnitInformation> unitInformationList);
