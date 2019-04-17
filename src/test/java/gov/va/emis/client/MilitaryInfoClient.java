@@ -5,6 +5,7 @@ import gov.va.viers.cdi.emis.commonservice.v2.InputEdipiIcn;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISdeploymentResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISguardReserveServicePeriodsResponseType;
+import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryOccupationResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISretirementResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISunitInformationResponseType;
@@ -92,6 +93,23 @@ public class MilitaryInfoClient {
 
     JAXBElement<EMISunitInformationResponseType> response =
         (JAXBElement<EMISunitInformationResponseType>)
+            webServiceTemplate.marshalSendAndReceive(request);
+
+    return response;
+  }
+
+  public JAXBElement<EMISmilitaryOccupationResponseType> getMilitaryOccupationResponse(
+      String value, String type, Boolean nullHeaders) {
+    InputEdiPiOrIcn input = new InputEdiPiOrIcn();
+    InputEdipiIcn edi = new InputEdipiIcn();
+    edi.setEdipiORicnValue(value);
+    edi.setInputType(type);
+    input.setEdipiORicn(edi);
+    JAXBElement<InputEdiPiOrIcn> request =
+        requestFactory.createEMISmilitaryOccupationRequest(input);
+
+    JAXBElement<EMISmilitaryOccupationResponseType> response =
+        (JAXBElement<EMISmilitaryOccupationResponseType>)
             webServiceTemplate.marshalSendAndReceive(request);
 
     return response;

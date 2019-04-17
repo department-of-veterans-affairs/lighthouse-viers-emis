@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NS4:eMISmilitaryOccupationResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
+  <NS5:militaryOccupation xmlns:NS5="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS6:edipi xmlns:NS6="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010023</NS6:edipi>
+    <NS7:keyData xmlns:NS7="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS7:personnelOrganizationCode>11</NS7:personnelOrganizationCode>
+      <NS7:personnelCategoryTypeCode>A</NS7:personnelCategoryTypeCode>
+      <NS7:personnelSegmentIdentifier>1</NS7:personnelSegmentIdentifier>
+    </NS7:keyData>
+    <NS8:militaryOccupationData xmlns:NS8="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS8:occupationSegmentIdentifier>3</NS8:occupationSegmentIdentifier>
+      <NS8:dodOccupationType>010</NS8:dodOccupationType>
+      <NS8:occupationType>P</NS8:occupationType>
+      <NS8:serviceSpecificOccupationType>11B1O00</NS8:serviceSpecificOccupationType>
+      <NS8:serviceOccupationDate>2009-01-31</NS8:serviceOccupationDate>
+    </NS8:militaryOccupationData>
+  </NS5:militaryOccupation>
+  <NS9:militaryOccupation xmlns:NS9="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS10:edipi xmlns:NS10="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010023</NS10:edipi>
+    <NS11:keyData xmlns:NS11="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS11:personnelOrganizationCode>11</NS11:personnelOrganizationCode>
+      <NS11:personnelCategoryTypeCode>A</NS11:personnelCategoryTypeCode>
+      <NS11:personnelSegmentIdentifier>1</NS11:personnelSegmentIdentifier>
+    </NS11:keyData>
+    <NS12:militaryOccupationData xmlns:NS12="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS12:occupationSegmentIdentifier>2</NS12:occupationSegmentIdentifier>
+      <NS12:dodOccupationType>010</NS12:dodOccupationType>
+      <NS12:occupationType>D</NS12:occupationType>
+      <NS12:serviceSpecificOccupationType>11B1O00</NS12:serviceSpecificOccupationType>
+      <NS12:serviceOccupationDate>2009-01-31</NS12:serviceOccupationDate>
+    </NS12:militaryOccupationData>
+  </NS9:militaryOccupation>
+  <NS13:militaryOccupation xmlns:NS13="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS14:edipi xmlns:NS14="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010023</NS14:edipi>
+    <NS15:keyData xmlns:NS15="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS15:personnelOrganizationCode>11</NS15:personnelOrganizationCode>
+      <NS15:personnelCategoryTypeCode>A</NS15:personnelCategoryTypeCode>
+      <NS15:personnelSegmentIdentifier>1</NS15:personnelSegmentIdentifier>
+    </NS15:keyData>
+    <NS16:militaryOccupationData xmlns:NS16="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS16:occupationSegmentIdentifier>2</NS16:occupationSegmentIdentifier>
+      <NS16:dodOccupationType>010</NS16:dodOccupationType>
+      <NS16:occupationType>P</NS16:occupationType>
+      <NS16:serviceSpecificOccupationType>11B1O</NS16:serviceSpecificOccupationType>
+      <NS16:serviceOccupationDate>2007-04-30</NS16:serviceOccupationDate>
+    </NS16:militaryOccupationData>
+  </NS13:militaryOccupation>
+  <NS17:militaryOccupation xmlns:NS17="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS18:edipi xmlns:NS18="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010023</NS18:edipi>
+    <NS19:keyData xmlns:NS19="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS19:personnelOrganizationCode>11</NS19:personnelOrganizationCode>
+      <NS19:personnelCategoryTypeCode>A</NS19:personnelCategoryTypeCode>
+      <NS19:personnelSegmentIdentifier>1</NS19:personnelSegmentIdentifier>
+    </NS19:keyData>
+    <NS20:militaryOccupationData xmlns:NS20="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS20:occupationSegmentIdentifier>1</NS20:occupationSegmentIdentifier>
+      <NS20:dodOccupationType>010</NS20:dodOccupationType>
+      <NS20:occupationType>D</NS20:occupationType>
+      <NS20:serviceSpecificOccupationType>11B1O</NS20:serviceSpecificOccupationType>
+      <NS20:serviceOccupationDate>2007-04-30</NS20:serviceOccupationDate>
+    </NS20:militaryOccupationData>
+  </NS17:militaryOccupation>
+  <NS21:militaryOccupation xmlns:NS21="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS22:edipi xmlns:NS22="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010023</NS22:edipi>
+    <NS23:keyData xmlns:NS23="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS23:personnelOrganizationCode>11</NS23:personnelOrganizationCode>
+      <NS23:personnelCategoryTypeCode>A</NS23:personnelCategoryTypeCode>
+      <NS23:personnelSegmentIdentifier>1</NS23:personnelSegmentIdentifier>
+    </NS23:keyData>
+    <NS24:militaryOccupationData xmlns:NS24="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS24:occupationSegmentIdentifier>1</NS24:occupationSegmentIdentifier>
+      <NS24:dodOccupationType>950</NS24:dodOccupationType>
+      <NS24:occupationType>P</NS24:occupationType>
+      <NS24:serviceSpecificOccupationType>11X1O</NS24:serviceSpecificOccupationType>
+      <NS24:serviceOccupationDate>2007-03-22</NS24:serviceOccupationDate>
+    </NS24:militaryOccupationData>
+  </NS21:militaryOccupation>
+</NS4:eMISmilitaryOccupationResponse>

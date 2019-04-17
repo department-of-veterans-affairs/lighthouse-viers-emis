@@ -2,6 +2,7 @@ package gov.va.dod;
 
 import gov.va.schema.emis.vdrdodadapter.v2.EMISdeploymentResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryOccupationResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISretirementResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType;
@@ -100,6 +101,22 @@ public class DoDAdapterClient {
 
     if (response.getValue() == null) {
       response.setValue(new EMISdeploymentResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISmilitaryOccupationResponseType> getMilitaryOccupationResponse(
+      String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISmilitaryOccupationRequest(edipi);
+
+    JAXBElement<EMISmilitaryOccupationResponseType> response =
+        (JAXBElement<EMISmilitaryOccupationResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISmilitaryOccupationResponseType());
     }
     return response;
   }
