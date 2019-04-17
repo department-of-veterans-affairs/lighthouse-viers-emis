@@ -3,6 +3,7 @@ package gov.va.emis.client;
 import gov.va.viers.cdi.cdi.commonservice.v2.InputHeaderInfo;
 import gov.va.viers.cdi.emis.commonservice.v2.InputEdipiIcn;
 import gov.va.viers.cdi.emis.requestresponse.militaryinfo.v2.ObjectFactory;
+import gov.va.viers.cdi.emis.requestresponse.v2.EMISdisabilitiesResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISguardReserveServicePeriodsResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISretirementResponseType;
@@ -123,6 +124,22 @@ public class MilitaryInfoClient {
 
     JAXBElement<EMISguardReserveServicePeriodsResponseType> response =
         (JAXBElement<EMISguardReserveServicePeriodsResponseType>)
+            webServiceTemplate.marshalSendAndReceive(request);
+
+    return response;
+  }
+
+  public JAXBElement<EMISdisabilitiesResponseType> getDisabilitiesResponse(
+      String value, String type, Boolean nullHeaders) {
+    InputEdiPiOrIcn input = new InputEdiPiOrIcn();
+    InputEdipiIcn edi = new InputEdipiIcn();
+    edi.setEdipiORicnValue(value);
+    edi.setInputType(type);
+    input.setEdipiORicn(edi);
+    JAXBElement<InputEdiPiOrIcn> request = requestFactory.createEMISdisabilitiesRequest(input);
+
+    JAXBElement<EMISdisabilitiesResponseType> response =
+        (JAXBElement<EMISdisabilitiesResponseType>)
             webServiceTemplate.marshalSendAndReceive(request);
 
     return response;
