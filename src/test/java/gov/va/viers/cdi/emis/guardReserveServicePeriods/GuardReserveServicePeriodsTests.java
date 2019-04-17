@@ -55,7 +55,7 @@ public class GuardReserveServicePeriodsTests {
 
   @Test
   public void getGuardReserveServicePeriodsEmptyResponse() {
-    initMock("emptyVadirResponse_UnitInfoSvc.xml", "1234567890");
+    initMock("emptyVadirResponse_GuardReserveSvc.xml", "1234567890");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISguardReserveServicePeriodsResponseType>
         response = emisClient.getGuardReserveServicePeriodsResponse("1234567890", "EDIPI", false);
 
@@ -69,7 +69,7 @@ public class GuardReserveServicePeriodsTests {
 
   @Test
   public void getGuardReserveServicePeriodsSuccess() {
-    initMock("exampleSuccessVadirResponse_UnitInfoSvc.xml", "6001010072");
+    initMock("exampleSuccessVadirResponse_GuardReserveSvc.xml", "6001010072");
     JAXBElement<gov.va.viers.cdi.emis.requestresponse.v2.EMISguardReserveServicePeriodsResponseType>
         response = emisClient.getGuardReserveServicePeriodsResponse("6001010072", "EDIPI", false);
 

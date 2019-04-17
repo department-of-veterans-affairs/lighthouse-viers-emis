@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+  <env:Header/>
+  <env:Body>
+    <eMISguardReserveServicePeriodsResponse xmlns="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2"></eMISguardReserveServicePeriodsResponse>
+  </env:Body>
+</env:Envelope>
