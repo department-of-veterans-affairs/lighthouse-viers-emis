@@ -15,23 +15,24 @@ import org.springframework.core.io.ClassPathResource;
 public class GuardReserveServicePeriodsTransformerTest {
 
   private static final Logger LOGGER =
-          LoggerFactory.getLogger(GuardReserveServicePeriodsTransformerTest.class);
+      LoggerFactory.getLogger(GuardReserveServicePeriodsTransformerTest.class);
   EMISguardReserveServicePeriodsResponseType emisResponse;
   gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType dodResponse;
 
   public void initializeResponses() {
     try {
       ClassPathResource emisSampleResponse =
-              new ClassPathResource("/samples/GuardReserveServicePeriodsEmisResponse.xml");
+          new ClassPathResource("/samples/GuardReserveServicePeriodsEmisResponse.xml");
       ClassPathResource dodSampleResponse =
-              new ClassPathResource("/samples/GuardReserveServicePeriodsDodResponse.xml");
+          new ClassPathResource("/samples/GuardReserveServicePeriodsDodResponse.xml");
       InputStream emisInputStream = emisSampleResponse.getInputStream();
       InputStream dodInputStream = dodSampleResponse.getInputStream();
-      emisResponse = JAXB.unmarshal(emisInputStream, EMISguardReserveServicePeriodsResponseType.class);
+      emisResponse =
+          JAXB.unmarshal(emisInputStream, EMISguardReserveServicePeriodsResponseType.class);
       dodResponse =
-              JAXB.unmarshal(
-                      dodInputStream,
-                      gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType.class);
+          JAXB.unmarshal(
+              dodInputStream,
+              gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType.class);
     } catch (IOException e) {
       LOGGER.debug("File not found, check resources folder", e);
       emisResponse = null;
@@ -43,7 +44,8 @@ public class GuardReserveServicePeriodsTransformerTest {
   public void GuardReserveServicePeriodsTransformersTest() {
     initializeResponses();
     EMISguardReserveServicePeriodsResponseType transformedDodResponse =
-            GuardReserveServicePeriodsMapper.INSTANCE.mapEMISguardReserveServicePeriodsResponseType(dodResponse);
+        GuardReserveServicePeriodsMapper.INSTANCE.mapEMISguardReserveServicePeriodsResponseType(
+            dodResponse);
     assertThat(transformedDodResponse).isEqualToComparingFieldByFieldRecursively(emisResponse);
   }
 }
