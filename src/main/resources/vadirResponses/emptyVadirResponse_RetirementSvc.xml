@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NS1:Envelope xmlns:NS1="http://www.w3.org/2003/05/soap-envelope">
+  <NS1:Body>
+    <NS3:eMISretirementResponse xmlns:NS3="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2"></NS3:eMISretirementResponse>
+  </NS1:Body>
+</NS1:Envelope>
