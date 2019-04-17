@@ -20,5 +20,6 @@ public interface GuardReserveServicePeriodsMapper {
       gov.va.schema.emis.vdrdodadapter.v2.GuardReserveServicePeriods guardReserveServicePeriods);
 
   GuardReserveServicePeriodsData mapGuardReserveServicePeriodsData(
-      gov.va.schema.emis.vdrdodadapter.v2.GuardReserveServicePeriods guardReserveServicePeriods);
+      gov.va.schema.emis.vdrdodadapter.v2.GuardReserveServicePeriodsData
+          guardReserveServicePeriodsData);
 }

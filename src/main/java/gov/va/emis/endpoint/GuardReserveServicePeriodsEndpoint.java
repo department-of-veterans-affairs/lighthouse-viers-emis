@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapHeader;
 
 @Endpoint
@@ -30,6 +31,7 @@ public class GuardReserveServicePeriodsEndpoint extends EmisEndpoint {
     namespace = "http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2",
     localPart = "eMISguardReserveServicePeriodsRequest"
   )
+  @ResponsePayload
   public JAXBElement processRequest(
       @RequestPayload InputEdiPiOrIcn request,
       @SoapHeader(value = "{http://viers.va.gov/cdi/CDI/commonService/v2}inputHeaderInfo")
