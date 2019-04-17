@@ -80,6 +80,6 @@ public class MilitaryOccupationTests {
                 .map(e -> e.getMilitaryOccupationData())
                 .map(s -> s.getOccupationSegmentIdentifier())
                 .orElse(null))
-        .isEqualTo("TODO");
+        .isEqualTo("3");
   }
 }
