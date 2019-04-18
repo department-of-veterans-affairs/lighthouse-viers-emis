@@ -8,6 +8,7 @@ import gov.va.viers.cdi.emis.requestresponse.v2.EMISguardReserveServicePeriodsRe
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryOccupationResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISmilitaryServiceEligibilityResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISretirementResponseType;
+import gov.va.viers.cdi.emis.requestresponse.v2.EMISserviceEpisodeResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.EMISunitInformationResponseType;
 import gov.va.viers.cdi.emis.requestresponse.v2.InputEdiPiOrIcn;
 import javax.xml.bind.JAXBContext;
@@ -142,6 +143,22 @@ public class MilitaryInfoClient {
 
     JAXBElement<EMISguardReserveServicePeriodsResponseType> response =
         (JAXBElement<EMISguardReserveServicePeriodsResponseType>)
+            webServiceTemplate.marshalSendAndReceive(request);
+
+    return response;
+  }
+
+  public JAXBElement<EMISserviceEpisodeResponseType> getServiceEpisodeResponse(
+      String value, String type, Boolean nullHeaders) {
+    InputEdiPiOrIcn input = new InputEdiPiOrIcn();
+    InputEdipiIcn edi = new InputEdipiIcn();
+    edi.setEdipiORicnValue(value);
+    edi.setInputType(type);
+    input.setEdipiORicn(edi);
+    JAXBElement<InputEdiPiOrIcn> request = requestFactory.createEMISserviceEpisodeRequest(input);
+
+    JAXBElement<EMISserviceEpisodeResponseType> response =
+        (JAXBElement<EMISserviceEpisodeResponseType>)
             webServiceTemplate.marshalSendAndReceive(request);
 
     return response;
