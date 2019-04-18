@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NS4:eMISserviceEpisodeResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
+  <NS5:militaryServiceEpisode xmlns:NS5="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS6:edipi xmlns:NS6="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010069</NS6:edipi>
+    <NS7:keyData xmlns:NS7="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS7:personnelOrganizationCode>52</NS7:personnelOrganizationCode>
+      <NS7:personnelCategoryTypeCode>N</NS7:personnelCategoryTypeCode>
+      <NS7:personnelSegmentIdentifier>1</NS7:personnelSegmentIdentifier>
+    </NS7:keyData>
+    <NS8:militaryServiceEpisodeData xmlns:NS8="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS8:serviceEpisodeStartDate>2012-03-02</NS8:serviceEpisodeStartDate>
+      <NS8:serviceEpisodeTerminationReason>W</NS8:serviceEpisodeTerminationReason>
+      <NS8:branchOfServiceCode>F</NS8:branchOfServiceCode>
+      <NS8:personnelProjectedEndDateCertaintyCode>U</NS8:personnelProjectedEndDateCertaintyCode>
+      <NS8:payPlanCode>MO</NS8:payPlanCode>
+      <NS8:payGradeCode>04</NS8:payGradeCode>
+      <NS8:serviceRankNameCode>MAJ</NS8:serviceRankNameCode>
+      <NS8:serviceRankNameTxt>Major</NS8:serviceRankNameTxt>
+      <NS8:payGradeDate>2013-07-24</NS8:payGradeDate>
+      <NS8:activeDutyServiceAgreementQuantity>0</NS8:activeDutyServiceAgreementQuantity>
+      <NS8:uniformServiceInitialEntryDate>2003-07-24</NS8:uniformServiceInitialEntryDate>
+      <NS8:militaryAccessionSourceCode>10</NS8:militaryAccessionSourceCode>
+      <NS8:personnelBeginDateSource>7</NS8:personnelBeginDateSource>
+      <NS8:personnelTerminationDateSourceCode>0</NS8:personnelTerminationDateSourceCode>
+      <NS8:mgsrServiceAgreementDurationYearQuantityCode>0</NS8:mgsrServiceAgreementDurationYearQuantityCode>
+    </NS8:militaryServiceEpisodeData>
+  </NS5:militaryServiceEpisode>
+  <NS9:militaryServiceEpisode xmlns:NS9="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS10:edipi xmlns:NS10="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010069</NS10:edipi>
+    <NS11:keyData xmlns:NS11="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS11:personnelOrganizationCode>12</NS11:personnelOrganizationCode>
+      <NS11:personnelCategoryTypeCode>A</NS11:personnelCategoryTypeCode>
+      <NS11:personnelSegmentIdentifier>1</NS11:personnelSegmentIdentifier>
+    </NS11:keyData>
+    <NS12:militaryServiceEpisodeData xmlns:NS12="http://viers.va.gov/cdi/eMIS/commonService/v2">
+      <NS12:serviceEpisodeStartDate>2003-08-12</NS12:serviceEpisodeStartDate>
+      <NS12:serviceEpisodeEndDate>2012-03-01</NS12:serviceEpisodeEndDate>
+      <NS12:serviceEpisodeTerminationReason>S</NS12:serviceEpisodeTerminationReason>
+      <NS12:branchOfServiceCode>F</NS12:branchOfServiceCode>
+      <NS12:personnelProjectedEndDateCertaintyCode>U</NS12:personnelProjectedEndDateCertaintyCode>
+      <NS12:dischargeCharacterOfServiceCode>A</NS12:dischargeCharacterOfServiceCode>
+      <NS12:personnelStatusChangeTransactionTypeCode>343</NS12:personnelStatusChangeTransactionTypeCode>
+      <NS12:narrativeReasonForSeparationCode>038</NS12:narrativeReasonForSeparationCode>
+      <NS12:narrativeReasonForSeparationTxt>REDUCTION IN FORCE</NS12:narrativeReasonForSeparationTxt>
+      <NS12:post911GIBillLossCategoryCode>05</NS12:post911GIBillLossCategoryCode>
+      <NS12:mgadLossCategoryCode>05</NS12:mgadLossCategoryCode>
+      <NS12:srLossTypeCode>ZZ</NS12:srLossTypeCode>
+      <NS12:payPlanCode>MO</NS12:payPlanCode>
+      <NS12:payGradeCode>03</NS12:payGradeCode>
+      <NS12:serviceRankNameCode>CAPT</NS12:serviceRankNameCode>
+      <NS12:serviceRankNameTxt>Captain</NS12:serviceRankNameTxt>
+      <NS12:payGradeDate>2007-10-31</NS12:payGradeDate>
+      <NS12:activeDutyServiceAgreementQuantity>99</NS12:activeDutyServiceAgreementQuantity>
+      <NS12:uniformServiceInitialEntryDate>2003-07-24</NS12:uniformServiceInitialEntryDate>
+      <NS12:militaryAccessionSourceCode>10</NS12:militaryAccessionSourceCode>
+      <NS12:personnelBeginDateSource>7</NS12:personnelBeginDateSource>
+      <NS12:personnelTerminationDateSourceCode>7</NS12:personnelTerminationDateSourceCode>
+      <NS12:activeFederalMilitaryServiceBaseDate>2003-08-11</NS12:activeFederalMilitaryServiceBaseDate>
+      <NS12:mgsrServiceAgreementDurationYearQuantityCode>Z</NS12:mgsrServiceAgreementDurationYearQuantityCode>
+    </NS12:militaryServiceEpisodeData>
+  </NS9:militaryServiceEpisode>
+</NS4:eMISserviceEpisodeResponse>
