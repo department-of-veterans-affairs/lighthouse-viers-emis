@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eMISdisabilitiesResponse xmlns="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2">
+  <disabilities>
+    <edipi>6001010002</edipi>
+    <disabilityPercent>60</disabilityPercent>
+    <permanentTemporaryIndicator>PERM</permanentTemporaryIndicator>
+    <payAmount>24573.60</payAmount>
+  </disabilities>
+</eMISdisabilitiesResponse>
