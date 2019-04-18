@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eMISretirementResponse xmlns="http://www.va.gov/schema/eMIS/VdrDoDAdapter/v2">
+  <retirement>
+    <edipi>1669865157</edipi>
+    <keyData>
+      <personnelOrganizationCode>22</personnelOrganizationCode>
+      <personnelCategoryTypeCode>R</personnelCategoryTypeCode>
+      <personnelSegmentIdentifier>2</personnelSegmentIdentifier>
+    </keyData>
+    <retirementData>
+      <retirementTypeCode>B</retirementTypeCode>
+      <retirementServiceCode>F</retirementServiceCode>
+      <retirementBeginDate>1997-09-01</retirementBeginDate>
+      <retirementTermDate>2017-11-21</retirementTermDate>
+      <retirementTerminationReasonCode>W</retirementTerminationReasonCode>
+    </retirementData>
+  </retirement>
+</eMISretirementResponse>

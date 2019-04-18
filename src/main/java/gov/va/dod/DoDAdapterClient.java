@@ -1,6 +1,12 @@
 package gov.va.dod;
 
+import gov.va.schema.emis.vdrdodadapter.v2.EMISdeploymentResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISdisabilitiesResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISguardReserveServicePeriodsResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryOccupationResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISmilitaryServiceEligibilityResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISretirementResponseType;
+import gov.va.schema.emis.vdrdodadapter.v2.EMISserviceEpisodeResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.EMISunitInformationResponseType;
 import gov.va.schema.emis.vdrdodadapter.v2.InputEdiPi;
 import gov.va.schema.emis.vdrdodadapter.v2.ObjectFactory;
@@ -52,6 +58,98 @@ public class DoDAdapterClient {
       response.setValue(new EMISunitInformationResponseType());
     }
 
+    return response;
+  }
+
+  public JAXBElement<EMISguardReserveServicePeriodsResponseType>
+      getGuardReserveServicePeriodsResponse(String value) {
+    InputEdiPi ediPi = new InputEdiPi();
+    ediPi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISguardReserveServicePeriodsRequest(ediPi);
+
+    JAXBElement<EMISguardReserveServicePeriodsResponseType> response =
+        (JAXBElement<EMISguardReserveServicePeriodsResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISguardReserveServicePeriodsResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISretirementResponseType> getRetirementResponse(String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISretirementRequest(edipi);
+
+    JAXBElement<EMISretirementResponseType> response =
+        (JAXBElement<EMISretirementResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISretirementResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISdeploymentResponseType> getDeploymentResponse(String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISdeploymentRequest(edipi);
+
+    JAXBElement<EMISdeploymentResponseType> response =
+        (JAXBElement<EMISdeploymentResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISdeploymentResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISdisabilitiesResponseType> getDisabilitiesResponse(String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISdisabilitiesRequest(edipi);
+
+    JAXBElement<EMISdisabilitiesResponseType> response =
+        (JAXBElement<EMISdisabilitiesResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISdisabilitiesResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISmilitaryOccupationResponseType> getMilitaryOccupationResponse(
+      String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISmilitaryOccupationRequest(edipi);
+
+    JAXBElement<EMISmilitaryOccupationResponseType> response =
+        (JAXBElement<EMISmilitaryOccupationResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISmilitaryOccupationResponseType());
+    }
+    return response;
+  }
+
+  public JAXBElement<EMISserviceEpisodeResponseType> getServiceEpisodeResponse(String value) {
+    InputEdiPi edipi = new InputEdiPi();
+    edipi.setEdipi(value);
+    JAXBElement<InputEdiPi> request = factory.createEMISserviceEpisodeRequest(edipi);
+
+    JAXBElement<EMISserviceEpisodeResponseType> response =
+        (JAXBElement<EMISserviceEpisodeResponseType>)
+            DoDAdapterWebServiceTemplate.marshalSendAndReceive(request);
+
+    if (response.getValue() == null) {
+      response.setValue(new EMISserviceEpisodeResponseType());
+    }
     return response;
   }
 }
