@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NS4:eMISdisabilitiesResponse xmlns:NS4="http://viers.va.gov/cdi/eMIS/RequestResponse/MilitaryInfo/v2">
+  <NS5:disabilities xmlns:NS5="http://viers.va.gov/cdi/eMIS/RequestResponse/v2">
+    <NS6:edipi xmlns:NS6="http://viers.va.gov/cdi/eMIS/commonService/v2">6001010002</NS6:edipi>
+    <NS7:disabilityPercent xmlns:NS7="http://viers.va.gov/cdi/eMIS/commonService/v2">60</NS7:disabilityPercent>
+    <NS8:permanentTemporaryIndicator xmlns:NS8="http://viers.va.gov/cdi/eMIS/commonService/v2">PERM</NS8:permanentTemporaryIndicator>
+    <NS9:payAmount xmlns:NS9="http://viers.va.gov/cdi/eMIS/commonService/v2">24573.60</NS9:payAmount>
+  </NS5:disabilities>
+</NS4:eMISdisabilitiesResponse>
